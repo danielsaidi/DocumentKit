@@ -41,7 +41,7 @@ public extension DocumentGroupPresenter {
  This enum defines errors that can be thrown when handling a
  ``DocumentGroupPresenter``.
  */
-public enum DocumentGroupPresenterError: Error {
+public enum DocumentGroupPresenterError: Error, Equatable {
 
     /// There was no requires parent window.
     case noParentWindow

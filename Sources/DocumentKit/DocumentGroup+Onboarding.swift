@@ -46,6 +46,7 @@ private extension DocumentGroup {
         @ViewBuilder content: @escaping () -> Content
     ) -> DocumentGroup {
         let store = store ?? .standard
+        // store.resetDocumentGroupOnboardingState(for: id)
         if store.documentGroupOnboardingState(for: id) { return self }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             do {

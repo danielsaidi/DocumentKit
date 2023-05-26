@@ -7,9 +7,9 @@ This article explains how to get started with DocumentKit.
 
 DocumentKit is a Swift library that adds more capabilities to `DocumentGroup`-based iOS apps.
 
-A document-based SwiftUI app returns a `DocumentGroup` scene from its body property, which you can customize to load various document types into your own custom views. It's an easy and powerful way to create apps that can be used to edit documents that can be stored on the user's device and in the cloud.
+Document-based SwiftUI apps return a `DocumentGroup` scene, into which you can load your own custom views to edit various document types. It's an easy and very powerful way to create apps that can edit documents and store them on the user's device and in the cloud.
 
-However, `DocumentGroup`-based apps are currently very limited when it comes to customizations. For instance, you can't add custom toolbar items to the document browser. Also, since a `DocumentGroup`-based app (unlike regular SwiftUI apps) doesn't have a view until you open a document, you can't present initial onboarding screens or modals from the document browser.  
+However, document apps are currently very limited when it comes to customizations. For instance, you can't add custom toolbar items to the document browser, and since a `DocumentGroup` (unlike regular SwiftUI apps) doesn't have a view until you open a document, you can't present initial onboarding screens or modals from the document browser.  
 
 DocumentKit aims to solve these problems.
 
@@ -17,9 +17,9 @@ DocumentKit aims to solve these problems.
 
 ## Presenting modal sheets and full screen covers
 
-DocumentKit has a `DocumentGroupModal` protocol, that lets us present modal sheets and full screen covers from any `DocumentGroup`. 
+DocumentKit has a `DocumentGroupModal` protocol, that lets you present any SwiftUI view as a modal from any `DocumentGroup`. 
 
-All you have to do is to add this protocol to your SwiftUI view:
+All you have to do is to add the protocol to your view:
 
 ```swift
 struct MyModalView: DocumentGroupModal {
@@ -30,36 +30,22 @@ struct MyModalView: DocumentGroupModal {
 }
 ```
 
-You can now present the view as a sheet, full screen cover, or using any UIKit-specific presentation style:
+You can now present the view as a sheet, full screen cover, or using any UIKit presentation style:
 
 ```swift
-@main
-struct MyApp: App {
-
-    init() {
-        MyModalView()
-            .presentAsDocumentGroupSheet()
-            // .presentAsDocumentGroupFullScreenCover()
-            // .presentAsDocumentGroupModal(.overCurrentContext)
-    }
-
-    var body: some Scene {
-        DocumentGroup(newDocument: DemoDocument()) { file in
-            ContentView(document: file.$document)
-        }
-    }
-}
+MyModalView()
+    .presentAsDocumentGroupSheet()
+    // .presentAsDocumentGroupFullScreenCover()
+    // .presentAsDocumentGroupModal(.overCurrentContext)
 ```
 
-This means that any SwiftUI view can be easily presented as a modal over any `DocumentGroup`. 
+This means that any SwiftUI view can be easily presented as a modal over any `DocumentGroup`.
 
 
 
 ## Presenting an initial app onboarding
 
-The `DocumentGroupModal` protocol gives us a lot of flexibility.
-
-We can use the capabilities it brings, to easily open an app onboarding when a `DocumentGroup`-based app starts.
+We can now use the `DocumentGroupModal` to easily open an app onboarding when a `DocumentGroup`-based app starts.
 
 All you have to do is to add an `onboardingSheet` or `onboardingFullScreenCover` to the `DocumentGroup`:
 
@@ -79,4 +65,6 @@ struct MyApp: App {
 
 This will present the onboarding screen *once*, after which it will not be shown again.
 
-If you want to present different onboarding experiences, you can provide a custom `id` for each onboarding. You can also provide your own `UserDefaults` store use the `documentGroupOnboardingState(...)`, `resetDocumentGroupOnboardingState(...)` and `setDocumentGroupOnboardingState(...)` `UserDefaults` extensions to get and set the state of a certain onboarding.
+If you want to present different onboarding experiences, you can provide a custom `id` for each onboarding. You can also provide a custom delay and your own `UserDefaults` store.
+
+If you want to programmatically get and set the presentation state of a certain onboarding, you can use the `documentGroupOnboardingState(...)`, `resetDocumentGroupOnboardingState(...)` and `setDocumentGroupOnboardingState(...)` `UserDefaults` extensions.

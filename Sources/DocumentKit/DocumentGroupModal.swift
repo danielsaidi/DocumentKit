@@ -37,10 +37,8 @@ public extension DocumentGroupModal {
         _ presentationStyle: UIModalPresentationStyle = .automatic
     ) throws {
         guard let parent = rootViewController else { throw DocumentGroupPresenterError.noParentWindow }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let controller = UIHostingController(rootView: self)
-            controller.modalPresentationStyle = presentationStyle
-            parent.present(controller, animated: true, completion: nil)
-        }
+        let controller = UIHostingController(rootView: self)
+        controller.modalPresentationStyle = presentationStyle
+        parent.present(controller, animated: true, completion: nil)
     }
 }

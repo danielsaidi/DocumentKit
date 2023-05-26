@@ -9,20 +9,12 @@
 import SwiftUI
 
 /**
- This protocol can be implemented by any SwiftUI `View` that
- can use the underlying native views of a `DocumentGroup` to
- present and dismiss documents and views.
+ This protocol can be implemented by any type that should be
+ able to present and dismiss views from a `DocumentGroup`.
  */
-public protocol DocumentGroupPresenter {}
+public protocol DocumentGroupPresenter: DocumentGroupInspector {}
 
 public extension DocumentGroupPresenter {
-
-    /**
-     Get the current key window's root view controller.
-     */
-    var rootViewController: UIViewController? {
-        keyWindow?.rootViewController
-    }
 
     /**
      Dismiss the currently opened document, if any.
@@ -45,16 +37,4 @@ public enum DocumentGroupPresenterError: Error, Equatable {
 
     /// There was no requires parent window.
     case noParentWindow
-}
-
-private extension DocumentGroupPresenter {
-
-    var keyWindow: UIWindow? {
-        UIApplication.shared.connectedScenes
-            .filter { $0.activationState == .foregroundActive }
-            .compactMap { $0 as? UIWindowScene }
-            .flatMap { $0.windows }
-            .filter { $0.isKeyWindow }
-            .first
-    }
 }

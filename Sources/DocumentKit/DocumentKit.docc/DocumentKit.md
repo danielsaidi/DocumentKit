@@ -1,13 +1,13 @@
 # ``DocumentKit``
 
-DocumentKit is a Swift library that adds more capabilities to DocumentGroup-based apps.
+DocumentKit is a Swift library that adds more capabilities to `DocumentGroup`-based iOS apps.
 
 
 ## Overview
 
 ![Library logotype](Logo.png)
 
-With DocumentKit, you can add custom toolbar items to the main document browser, present initial onboarding experiences and modals from it, handle deep links etc.
+With DocumentKit, you can add custom toolbar items to the main document browser, present initial onboarding screens, open modal sheets and full screens, etc.
 
 See the <doc:Getting-Started> guide for more information and code examples.
 
@@ -25,15 +25,9 @@ If you prefer to not have external dependencies, you can also just copy the sour
 
 
 
-## Supported Platforms
-
-DocumentKit supports `iOS 13`, `macOS 11`, `tvOS 13` and `watchOS 6`.
-
-
-
 ## License
 
-ScrollKit is available under the MIT license. See the [LICENSE][License] file for more info.
+DocumentKit is available under the MIT license. See the [LICENSE][License] file for more info.
 
 
 
@@ -45,5 +39,5 @@ ScrollKit is available under the MIT license. See the [LICENSE][License] file fo
 
 ### Foundation
 
-- ``DocumentGroupFullScreenCover``
-- ``DocumentGroupSheet``
+- ``DocumentGroupModal``
+- ``DocumentGroupPresenter``

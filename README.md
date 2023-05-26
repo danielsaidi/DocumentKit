@@ -43,7 +43,52 @@ DocumentKit supports `iOS 14` and later.
 
 ## Getting started
 
-...
+DocumentKit adds more functionality to `DocumentGroup`.
+
+DocumentKit extends `DocumentGroup` with more modifiers, to let you add custom toolbar items, customize the browser etc.:
+
+```swift
+@main
+struct MyApp: App {
+
+    var body: some Scene {
+        DocumentGroup(newDocument: DemoDocument()) { file in
+            ContentView(document: file.$document)
+        }
+        .additionalNavigationBarButtonItems(
+            leading: [...],
+            trailing: [...]
+        )
+        .showFileExtensions(true)
+    }
+}
+```
+
+DocumentKit also extends `DocumentGroup` with a modifier that lets you present an onboarding screen when the app starts for the first time:
+
+```swift
+@main
+struct DemoApp: App {
+
+    var body: some Scene {
+        DocumentGroup(newDocument: DemoDocument()) { file in
+            ContentView(document: file.$document)
+        }
+        .onboardingSheet {
+            MyOnboardingScreen()
+        }
+    }
+}
+
+struct MyOnboardingScreen: DocumentGroupModal {
+
+    var body: some View {
+        Text("Hello, onboarding!")
+    }
+}
+```
+ 
+Any `DocumentGroupModal` can be presented as a sheet, a full screen cover, or using any UIKit-specific modal presentation type.
 
 For more information, please see the [online documentation][Documentation] and [getting started guide][Getting-Started] guide. 
 

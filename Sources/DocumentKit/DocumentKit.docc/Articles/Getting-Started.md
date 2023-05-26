@@ -115,7 +115,7 @@ For instance, you can add additional bar button items, configure some predefined
 
 ```swift
 @main
-struct DemoApp: App {
+struct MyApp: App {
 
     var body: some Scene {
         DocumentGroup(newDocument: DemoDocument()) { file in

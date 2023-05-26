@@ -23,7 +23,7 @@ public extension DocumentGroupInspector {
     /**
      Get the current key window's root view controller.
      */
-    var documentGroup: UIDocumentBrowserViewController? {
+    var documentBrowser: UIDocumentBrowserViewController? {
         rootViewController as? UIDocumentBrowserViewController
     }
 
@@ -32,6 +32,25 @@ public extension DocumentGroupInspector {
      */
     var rootViewController: UIViewController? {
         keyWindow?.rootViewController
+    }
+
+    /**
+     Dismiss the currently opened document, if any.
+     */
+    func dismissCurrentDocument() {
+        dismissCurrentDocument {}
+    }
+
+    /**
+     Dismiss the currently opened document, if any.
+     */
+    func dismissCurrentDocument(
+        completion: @escaping () -> Void
+    ) {
+        rootViewController?.dismiss(
+            animated: true,
+            completion: completion
+        )
     }
 }
 

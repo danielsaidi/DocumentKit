@@ -41,4 +41,8 @@ DocumentKit is available under the MIT license. See the [LICENSE][License] file 
 
 - ``DocumentGroupInspector``
 - ``DocumentGroupModal``
-- ``DocumentGroupPresenter``
+- ``DocumentGroupToolbarItem``
+
+### Errors
+
+- ``DocumentGroupError``

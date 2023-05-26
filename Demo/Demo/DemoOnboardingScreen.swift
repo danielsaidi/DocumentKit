@@ -25,8 +25,9 @@ struct DemoOnboardingScreen: View, DocumentGroupModal {
                 Text("Page 4")
                 Text("Page 5")
             }
-            .tabViewStyle(.page(indexDisplayMode: .always))
             .withLeadingCloseButton()
+            .navigationTitle("Onboarding")
+            .tabViewStyle(.page(indexDisplayMode: .always))
         }
     }
 }

@@ -12,7 +12,7 @@ import SwiftUI
  This protocol can be implemented by any view, that you have
  to be able to open from a document group.
  */
-public protocol DocumentGroupModal: View, DocumentGroupPresenter {}
+public protocol DocumentGroupModal: View, DocumentGroupInspector {}
 
 public extension DocumentGroupModal {
 
@@ -36,7 +36,7 @@ public extension DocumentGroupModal {
     func presentAsDocumentGroupModal(
         _ presentationStyle: UIModalPresentationStyle = .automatic
     ) throws {
-        guard let parent = rootViewController else { throw DocumentGroupPresenterError.noParentWindow }
+        guard let parent = rootViewController else { throw DocumentGroupError.noParentWindow }
         let controller = UIHostingController(rootView: self)
         controller.modalPresentationStyle = presentationStyle
         parent.present(controller, animated: true, completion: nil)

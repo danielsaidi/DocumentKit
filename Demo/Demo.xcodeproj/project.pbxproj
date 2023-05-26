@@ -16,6 +16,7 @@
 		A9B933DA2A20C619005CDBF9 /* DocumentKit in Frameworks */ = {isa = PBXBuildFile; productRef = A9B933D92A20C619005CDBF9 /* DocumentKit */; };
 		A9B933DC2A20C640005CDBF9 /* DemoOnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B933DB2A20C640005CDBF9 /* DemoOnboardingScreen.swift */; };
 		A9D06F542A20C7270078D61F /* DemoCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D06F532A20C7270078D61F /* DemoCloseButton.swift */; };
+		A9D06F562A20EC950078D61F /* DemoSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D06F552A20EC950078D61F /* DemoSettingsScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		A9B933D62A20C4FD005CDBF9 /* DemoModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoModal.swift; sourceTree = "<group>"; };
 		A9B933DB2A20C640005CDBF9 /* DemoOnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoOnboardingScreen.swift; sourceTree = "<group>"; };
 		A9D06F532A20C7270078D61F /* DemoCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoCloseButton.swift; sourceTree = "<group>"; };
+		A9D06F552A20EC950078D61F /* DemoSettingsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSettingsScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				A9B933C32A20C4B0005CDBF9 /* DemoDocument.swift */,
 				A9B933D62A20C4FD005CDBF9 /* DemoModal.swift */,
 				A9B933DB2A20C640005CDBF9 /* DemoOnboardingScreen.swift */,
+				A9D06F552A20EC950078D61F /* DemoSettingsScreen.swift */,
 				A9D06F532A20C7270078D61F /* DemoCloseButton.swift */,
 				A9B933C72A20C4B1005CDBF9 /* Assets.xcassets */,
 				A9B933CC2A20C4B1005CDBF9 /* Info.plist */,
@@ -178,6 +181,7 @@
 				A9D06F542A20C7270078D61F /* DemoCloseButton.swift in Sources */,
 				A9B933C22A20C4B0005CDBF9 /* DemoApp.swift in Sources */,
 				A9B933C42A20C4B0005CDBF9 /* DemoDocument.swift in Sources */,
+				A9D06F562A20EC950078D61F /* DemoSettingsScreen.swift in Sources */,
 				A9B933D72A20C4FD005CDBF9 /* DemoModal.swift in Sources */,
 				A9B933DC2A20C640005CDBF9 /* DemoOnboardingScreen.swift in Sources */,
 				A9B933C62A20C4B0005CDBF9 /* ContentView.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  DemoModal.swift
+//  DemoSettingsScreen.swift
 //  Demo
 //
 //  Created by Daniel Saidi on 2023-05-26.
@@ -9,19 +9,19 @@
 import DocumentKit
 import SwiftUI
 
-struct DemoModal: View, DocumentGroupModal {
+struct DemoSettingsScreen: View, DocumentGroupModal {
 
     var body: some View {
         NavigationStack {
-            Text("Hello, modal!")
-                .navigationTitle("Modal")
+            Text("Settings")
+                .navigationTitle("Settings")
                 .withLeadingCloseButton()
         }
     }
 }
 
-struct DemoModal_Previews: PreviewProvider {
+struct DemoSettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        DemoModal()
+        DemoSettingsScreen()
     }
 }

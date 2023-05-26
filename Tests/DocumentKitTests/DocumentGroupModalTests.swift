@@ -19,7 +19,7 @@ final class DocumentGroupModalTests: XCTestCase {
             try modal.presentAsDocumentGroupSheet()
             XCTFail("This test should fail with a missing parent error")
         } catch {
-            let error = error as? DocumentGroupPresenterError
+            let error = error as? DocumentGroupError
             XCTAssertEqual(error, .noParentWindow)
         }
     }
@@ -29,7 +29,7 @@ final class DocumentGroupModalTests: XCTestCase {
             try modal.presentAsDocumentGroupFullScreenCover()
             XCTFail("This test should fail with a missing parent error")
         } catch {
-            let error = error as? DocumentGroupPresenterError
+            let error = error as? DocumentGroupError
             XCTAssertEqual(error, .noParentWindow)
         }
     }

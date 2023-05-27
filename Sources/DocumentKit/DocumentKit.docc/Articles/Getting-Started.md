@@ -81,7 +81,7 @@ This means that any SwiftUI view can be easily presented as a modal over any `Do
 
 ## How to present an initial onboarding screen
 
-We can now use the `DocumentGroupModal` to easily open an app onboarding when a `DocumentGroup`-based app starts.
+We can now use the ``DocumentGroupModal`` to easily open an app onboarding when a `DocumentGroup`-based app starts.
 
 All you have to do is to add an `onboardingSheet` or `onboardingFullScreenCover` to the `DocumentGroup`:
 

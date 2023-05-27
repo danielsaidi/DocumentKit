@@ -6,6 +6,14 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.1.1
+
+This patch makes the `DocumentGroupModal` present functions available to all `View`s.
+
+This is needed so that a modal can be modified before being presented. 
+
+
+
 ## 0.1
 
 This is the first beta version, which adds functionality to present modals and onboardings, inspect the document browser and customize the document browser. 

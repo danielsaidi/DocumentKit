@@ -15,11 +15,18 @@
 </p>
 
 
+
 ## About DocumentKit
 
-DocumentKit is a Swift library that adds more capabilities to `DocumentGroup`-based iOS apps.
+DocumentKit adds more capabilities to `DocumentGroup`-based iOS apps.
 
-With DocumentKit, you can add custom toolbar items to the main document browser, present initial onboarding screens, open modal sheets and full screens, etc.
+Unlike regular SwiftUI apps, document-based apps have a `DocumentGroup` root scene, into which you can load a custom document view. It's a powerful way for apps to edit documents and store them on device and in the cloud. 
+
+However, document apps are currently very limited when it comes to customizations. For instance, you can't add custom toolbar items to the document browser, and since a `DocumentGroup` doesn't have a view until you open a document, you can't present initial onboarding screens or modals from it. 
+
+DocumentKit lets you do all these things, to let you create a better app experience for your document-based apps.
+
+DocumentKit supports `iOS 14` and later.
 
 
 
@@ -35,17 +42,11 @@ If you prefer to not have external dependencies, you can also just copy the sour
 
 
 
-## Supported Platforms
-
-DocumentKit supports `iOS 14` and later.
-
-
-
 ## Getting started
 
-DocumentKit adds more functionality to `DocumentGroup`.
+The [online documentation][Documentation] has a [getting started][Getting-Started] guide to help you get started with DocumentKit.
 
-DocumentKit extends `DocumentGroup` with more modifiers, to let you add custom toolbar items, customize the browser etc.:
+DocumentKit extends `DocumentGroup` with more view modifiers, to let you add custom toolbar items, customize the document browser etc.:
 
 ```swift
 @main
@@ -88,7 +89,7 @@ struct MyOnboardingScreen: DocumentGroupModal {
 }
 ```
  
-Any `DocumentGroupModal` can be presented as a sheet, a full screen cover, or using any UIKit-specific modal presentation type.
+DeckKit also lets the `DocumentGroup` present any `DocumentGroupModal` as a sheet, a full screen cover, or using any UIKit-specific modal presentation type.
 
 For more information, please see the [online documentation][Documentation] and [getting started guide][Getting-Started] guide. 
 
@@ -102,11 +103,13 @@ The [online documentation][Documentation] contains more information, code exampl
 
 ## Demo Application
 
-The demo app lets you explore the library on iOS and macOS. To try it out, just open and run the `Demo` project.
+The demo app lets you explore the library. To try it out, just open and run the `Demo` project.
 
 
 
-## Support
+## Support this library
+
+I manage my various open-source projects in my free time and am really thankful for any help I can get from the community. 
 
 You can sponsor this project on [GitHub Sponsors][Sponsors] or get in touch for paid support.
 

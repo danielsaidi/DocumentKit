@@ -90,8 +90,6 @@ private extension DocumentGroup {
         // ensure that dismiss is greater than delay and lasts for at least 1 seconds (constitutes viewing time)
         let dismiss = (dismiss ?? dismiss)! <= delay ? delay + 1 : dismiss!
 
-        print("delay=\(delay) and dismiss=\(dismiss)")
-
         // show the splash screen
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             do {

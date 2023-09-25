@@ -88,8 +88,32 @@ struct MyOnboardingScreen: DocumentGroupModal {
     }
 }
 ```
+
+Additionally, DocumentKit extends `DocumentGroup` with a modifier that lets you present a splash screen each time the app runs - both with a configurable option to stop presenting it and options to configure when it is presented (delay) and when it is automatically dissmissed (dismiss):
+
+```swift
+@main
+struct DemoApp: App {
+
+    var body: some Scene {
+        DocumentGroup(newDocument: DemoDocument()) { file in
+            ContentView(document: file.$document)
+        }
+        .splashScreenSheet(delay: 0.5, dismiss: 3) {
+            MySplashScreen()
+        }
+    }
+}
+
+struct MySplashScreen: DocumentGroupModal {
+
+    var body: some View {
+        Text("Hello, Splishy Splash screen!")
+    }
+}
+```
  
-DeckKit also lets the `DocumentGroup` present any `DocumentGroupModal` as a sheet, a full screen cover, or using any UIKit-specific modal presentation type.
+DockKit also lets the `DocumentGroup` present any `DocumentGroupModal` as a sheet, a full screen cover, or using any UIKit-specific modal presentation type.
 
 For more information, please see the [online documentation][Documentation] and [getting started guide][Getting-Started] guide. 
 

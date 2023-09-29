@@ -27,14 +27,14 @@ public extension DocumentGroup {
     func onboardingSheet<Contents: DocumentGroupModal>(
         id: String? = nil,
         store: UserDefaults? = nil,
-        delay: TimeInterval? = 0.5,
+        delay: TimeInterval? = UserDefaults.standardDelay,
         @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
         onboardingModal(
             id: id,
             store: store,
             delay: delay,
-            presentation: { try $0.presentAsDocumentGroupSheet() },
+            presentation: .pageSheet,
             content: content
         )
     }
@@ -56,14 +56,14 @@ public extension DocumentGroup {
     func onboardingFullScreenCover<Contents: DocumentGroupModal>(
         id: String? = nil,
         store: UserDefaults? = nil,
-        delay: TimeInterval? = 0.5,
+        delay: TimeInterval? = UserDefaults.standardDelay,
         @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
         onboardingModal(
             id: id,
             store: store,
             delay: delay,
-            presentation: { try $0.presentAsDocumentGroupFullScreenCover() },
+            presentation: .fullScreen,
             content: content
         )
     }
@@ -74,19 +74,18 @@ private extension DocumentGroup {
     private func onboardingModal<Contents: DocumentGroupModal>(
         id: String? = nil,
         store: UserDefaults? = nil,
-        delay: TimeInterval? = nil,
-        presentation: (Content) throws -> Void,
+        delay: TimeInterval? = UserDefaults.standardDelay,
+        presentation: UIModalPresentationStyle,
         @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
         let store = store ?? .standard
         // ensure that delay is never set to 0 else app will crash
-        let delay = delay ?? delay == 0 ? 0.5 : delay!
+        let delay = delay ?? delay == 0 ? UserDefaults.standardDelay : delay!
 
-        // store.resetDocumentGroupOnboardingState(for: id)
         if store.documentGroupOnboardingState(for: id) { return self }
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             do {
-                try content().presentAsDocumentGroupFullScreenCover()
+                try content().presentAsDocumentGroupModal(presentation)
                 store.setDocumentGroupOnboardingState(to: true, for: id)
             } catch {
                 // treat as mission critical

@@ -113,7 +113,7 @@ struct MySplashScreen: DocumentGroupModal {
 }
 ```
  
-DockKit also lets the `DocumentGroup` present any `DocumentGroupModal` as a sheet, a full screen cover, or using any UIKit-specific modal presentation type.
+DocumentKit also lets the `DocumentGroup` present any `DocumentGroupModal` as a sheet, a full screen cover, or using any UIKit-specific modal presentation type.
 
 For more information, please see the [online documentation][Documentation] and [getting started guide][Getting-Started] guide. 
 

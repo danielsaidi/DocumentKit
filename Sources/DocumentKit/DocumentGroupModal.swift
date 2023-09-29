@@ -46,7 +46,7 @@ public extension View {
      Present the view as a document group sheet.
      */
     func presentAsDocumentGroupSheet() throws {
-        try presentAsDocumentGroupModal(.automatic)
+        try presentAsDocumentGroupModal(.pageSheet)
     }
 
     /**

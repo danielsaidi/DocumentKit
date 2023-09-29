@@ -16,7 +16,7 @@ public extension DocumentGroup {
      Try customizing the underlying document group browser.
      */
     func tryCustomizeBrowser(
-        delay: TimeInterval = 0.5,
+        delay: TimeInterval = UserDefaults.standardDelay,
         _ action: @escaping DocumentGroupCustomization,
         tryAgain: Bool = true
     ) -> DocumentGroup {

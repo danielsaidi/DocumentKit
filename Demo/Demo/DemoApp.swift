@@ -30,19 +30,27 @@ struct DemoApp: App {
 
 private extension DocumentGroupToolbarItem {
 
+    // present the Onboarding view as a full sheet cover
     static let onboarding = DocumentGroupToolbarItem(icon: .onboarding) {
         try? DemoOnboardingScreen()
             .presentAsDocumentGroupFullScreenCover()
     }
 
+    // present the settings view as a sheet
     static let settings = DocumentGroupToolbarItem(icon: .settings) {
         try? DemoSettingsScreen()
             .presentAsDocumentGroupSheet()
     }
+
+    // present story details as a popOver below the .storyDetails icon
+    static let storyDetails = DocumentGroupToolbarItem(icon: .storyDetails) {
+        try? StoryDetails()
+            .presentAsDocumentGroupPopover()
+    }
 }
 
 private extension UIImage {
-
+    static let storyDetails = UIImage(systemName: "book")
     static let onboarding = UIImage(systemName: "lightbulb")
     static let settings = UIImage(systemName: "gearshape")
 }

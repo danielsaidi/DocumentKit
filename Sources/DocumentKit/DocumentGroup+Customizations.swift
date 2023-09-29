@@ -17,14 +17,14 @@ public extension DocumentGroup {
      */
     func tryCustomizeBrowser(
         delay: TimeInterval = UserDefaults.standardDelay,
-        _ action: @escaping DocumentGroupCustomization,
-        tryAgain: Bool = true
+        _ action: @escaping DocumentGroupCustomization
     ) -> DocumentGroup {
         if let group = documentBrowser {
             action(group)
         } else {
+            // retry once
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                _ = tryCustomizeBrowser(action, tryAgain: false)
+                _ = tryCustomizeBrowser(action)
             }
         }
         return self

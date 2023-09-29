@@ -9,6 +9,16 @@
 import UIKit
 
 /**
+ Extension to UIBarButtonItem to mark it as selected for Popover anchoring.
+ Note that only one UIBarButtonItem can be selected concurrently (which in
+ practice seems favorable).
+ */
+extension UIBarButtonItem {
+    static var selected = false
+    static var selectedItem: UIBarButtonItem?
+}
+
+/**
  This struct can be used to add custom toolbar items to your
  `DocumentGroup`.
 
@@ -16,6 +26,9 @@ import UIKit
  with the `additionalNavigationBarButtonItems` modifier.
  */
 public class DocumentGroupToolbarItem {
+    private let icon: UIImage?
+    private let action: () -> Void
+    private let customization: (UIBarButtonItem) -> Void
 
     /// Create a document group toolbar item.
     public init(
@@ -27,10 +40,6 @@ public class DocumentGroupToolbarItem {
         self.action = action
         self.customization = customization
     }
-
-    private let icon: UIImage?
-    private let action: () -> Void
-    private let customization: (UIBarButtonItem) -> Void
 
     var barButtonItem: UIBarButtonItem {
         let item = UIBarButtonItem(
@@ -44,7 +53,9 @@ public class DocumentGroupToolbarItem {
     }
 
     @objc
-    func callAction() {
+    func callAction(_ sender: UIBarButtonItem) {
+        UIBarButtonItem.selected = true
+        UIBarButtonItem.selectedItem = sender
         action()
     }
 }

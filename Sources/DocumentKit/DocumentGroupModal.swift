@@ -52,7 +52,7 @@ public extension View {
      Present the view as a document group sheet.
      */
     func presentAsDocumentGroupSheet() throws {
-        try presentAsDocumentGroupModal(.pageSheet)
+        try presentAsDocumentGroupModal(.automatic)
     }
 
     /**
@@ -80,7 +80,7 @@ public extension View {
         controller.modalPresentationStyle = style
         controller.isModalInPresentation = false
         let rootView = controller.view
-        guard let documentBrowser = inspector.documentBrowser else {
+        guard let _ = inspector.documentBrowser else {
             return
         }
 

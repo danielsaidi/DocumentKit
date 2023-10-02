@@ -34,7 +34,7 @@ public extension DocumentGroup {
             id: id,
             store: store,
             delay: delay,
-            presentation: .pageSheet,
+            presentation: .fullScreen,
             content: content
         )
     }

@@ -10,6 +10,9 @@ import DocumentKit
 
 @main
 struct DemoApp: App {
+    init() {
+        UserDefaults().resetDocumentGroupOnboardingState()
+    }
 
     var body: some Scene {
         DocumentGroup(newDocument: DemoDocument()) { file in
@@ -22,7 +25,10 @@ struct DemoApp: App {
             leading: [.onboarding, .popover],
             trailing: [.settings]
         )
-        .onboardingSheet {
+        .splashScreenSheet(delay: 0.5, dismiss: 3) {
+            DemoSplashScreenSheet()
+        }
+        .onboardingSheet(delay: 4) {
             DemoOnboardingScreen()
         }
     }

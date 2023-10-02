@@ -43,7 +43,7 @@ private extension DocumentGroupToolbarItem {
     }
 
     // present story details as a popOver below the .storyDetails icon
-    static let popover = DocumentGroupToolbarItem(icon: .storyDetails) {
+    static let popover = DocumentGroupToolbarItem(icon: .popover) {
         try? DemoPopoverScreen()
             .presentAsDocumentGroupPopover()
     }

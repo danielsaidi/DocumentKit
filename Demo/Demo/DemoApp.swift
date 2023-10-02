@@ -19,7 +19,7 @@ struct DemoApp: App {
         // .allowsPickingMultipleItems(true)
         // .showFileExtensions(true)
         .additionalNavigationBarButtonItems(
-            leading: [.onboarding],
+            leading: [.onboarding, .popover],
             trailing: [.settings]
         )
         .onboardingSheet {
@@ -43,14 +43,14 @@ private extension DocumentGroupToolbarItem {
     }
 
     // present story details as a popOver below the .storyDetails icon
-    static let storyDetails = DocumentGroupToolbarItem(icon: .storyDetails) {
-        try? StoryDetails()
+    static let popover = DocumentGroupToolbarItem(icon: .storyDetails) {
+        try? DemoPopoverScreen()
             .presentAsDocumentGroupPopover()
     }
 }
 
 private extension UIImage {
-    static let storyDetails = UIImage(systemName: "book")
+    static let popover = UIImage(systemName: "book")
     static let onboarding = UIImage(systemName: "lightbulb")
     static let settings = UIImage(systemName: "gearshape")
 }

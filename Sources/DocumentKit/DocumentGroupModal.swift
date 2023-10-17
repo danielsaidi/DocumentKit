@@ -65,9 +65,7 @@ public extension View {
         controller.modalPresentationStyle = style
         controller.isModalInPresentation = false
         let rootView = controller.view
-        guard let _ = inspector.documentBrowser else {
-            return
-        }
+        if inspector.documentBrowser == nil { return }
 
         // handle popover positioning
         if let popover: UIPopoverPresentationController = controller.popoverPresentationController {
@@ -83,4 +81,3 @@ public extension View {
         parent.show(controller, sender: nil)
     }
 }
-

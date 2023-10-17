@@ -20,30 +20,22 @@ extension DocumentGroup: DocumentGroupInspector {}
 
 public extension DocumentGroupInspector {
 
-    /**
-     Get the current key window's UIDocumentBrowserViewController.
-     */
+    /// Get the current `UIDocumentBrowserViewController`.
     var documentBrowser: UIDocumentBrowserViewController? {
         rootViewController as? UIDocumentBrowserViewController
     }
 
-    /**
-     Get the current key window's UIViewController.
-     */
+    /// Get the current `UIViewController`.
     var rootViewController: UIViewController? {
         keyWindow?.rootViewController
     }
 
-    /**
-     Dismiss the currently opened document, if any.
-     */
+    /// Dismiss the currently opened document, if any.
     func dismissCurrentDocument() {
         dismissCurrentDocument {}
     }
 
-    /**
-     Dismiss the currently opened document, if any.
-     */
+    /// Dismiss the currently opened document, if any.
     private func dismissCurrentDocument(
         completion: @escaping () -> Void
     ) {

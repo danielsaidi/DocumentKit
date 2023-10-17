@@ -10,8 +10,9 @@ import DocumentKit
 
 @main
 struct DemoApp: App {
+    
     init() {
-        UserDefaults().resetDocumentGroupOnboardingState()
+        UserDefaults().resetDocumentPresentationState(for: "onboarding")
     }
 
     var body: some Scene {
@@ -25,10 +26,10 @@ struct DemoApp: App {
             leading: [.onboarding, .popover],
             trailing: [.settings]
         )
-        .splashScreenSheet(delay: 0.5, dismiss: 3) {
+        .splashScreenSheet(delay: 0.5, dismissAfter: 3) {
             DemoSplashScreenSheet()
         }
-        .onboardingSheet(delay: 4) {
+        .onboardingSheet(id: "onboarding", delay: 4) {
             DemoOnboardingScreen()
         }
     }
@@ -56,6 +57,7 @@ private extension DocumentGroupToolbarItem {
 }
 
 private extension UIImage {
+    
     static let popover = UIImage(systemName: "book")
     static let onboarding = UIImage(systemName: "lightbulb")
     static let settings = UIImage(systemName: "gearshape")

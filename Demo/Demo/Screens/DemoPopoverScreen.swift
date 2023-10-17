@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DemoPopoverScreen: View {
     var body: some View {
-        Text("Poppin' fresh!")
+        Text("Poppin' fresh (on iPad)!")
     }
 }
 

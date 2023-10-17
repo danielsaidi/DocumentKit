@@ -12,17 +12,14 @@ public extension DocumentGroup {
 
     typealias DocumentGroupCustomization = (UIDocumentBrowserViewController) -> Void
 
-    /**
-     Try customizing the underlying document group browser.
-     */
+    /// Try customizing the underlying document browser.
     func tryCustomizeBrowser(
-        delay: TimeInterval = UserDefaults.standardDelay,
+        delay: TimeInterval = .defaultDocumentModalDelay,
         _ action: @escaping DocumentGroupCustomization
     ) -> DocumentGroup {
         if let group = documentBrowser {
             action(group)
         } else {
-            // retry once
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 _ = tryCustomizeBrowser(action)
             }

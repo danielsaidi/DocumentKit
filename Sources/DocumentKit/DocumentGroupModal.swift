@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 /**
  This protocol can be implemented by any view, that you have
  to be able to open from a document group.
@@ -19,24 +18,16 @@ import SwiftUI
  */
 public protocol DocumentGroupModal: View, DocumentGroupInspector {
 
-    /**
-     Present the view as a document group sheet.
-     */
+    /// Present the view as a document group sheet.
     func presentAsDocumentGroupSheet() throws
 
-    /**
-     Present the view as a document group full screen cover.
-     */
+    /// Present the view as a document group cover.
     func presentAsDocumentGroupFullScreenCover() throws
 
-    /**
-     Present the view as a PopOver
-     */
+    /// Present the view as a document group popover.
     func presentAsDocumentGroupPopover() throws
 
-    /**
-     Present the view as a document group modal.
-     */
+    /// Present the view as a document group modal.
     func presentAsDocumentGroupModal(_ style: UIModalPresentationStyle ) throws
 }
 
@@ -48,23 +39,17 @@ private class InternalInspector: DocumentGroupInspector {
 
 public extension View {
 
-    /**
-     Present the view as a document group sheet.
-     */
+    /// Present the view as a document group sheet.
     func presentAsDocumentGroupSheet() throws {
         try presentAsDocumentGroupModal(.automatic)
     }
 
-    /**
-     Present the view as a document group full screen cover.
-     */
+    /// Present the view as a document group cover.
     func presentAsDocumentGroupFullScreenCover() throws {
         try presentAsDocumentGroupModal(.fullScreen)
     }
 
-    /**
-     Present the view as a popover anchored to the selected UIButtonBarItem.
-     */
+    /// Present the view as a document group popover.
     func presentAsDocumentGroupPopover() throws {
         try presentAsDocumentGroupModal(.popover)
     }
@@ -95,7 +80,7 @@ public extension View {
             }
         }
 
-        parent.present(controller, animated: true, completion: nil)
+        parent.show(controller, sender: nil)
     }
 }
 

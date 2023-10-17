@@ -24,16 +24,17 @@ public extension DocumentGroup {
        - delay: The delay before presenting the onboarding, by default `0.5`.
        - content: The onboarding content.
      */
-    func onboardingSheet<Content: DocumentGroupModal>(
+    func onboardingSheet<Contents: DocumentGroupModal>(
         id: String? = nil,
         store: UserDefaults? = nil,
-        delay: TimeInterval? = nil,
-        @ViewBuilder content: @escaping () -> Content
+        delay: TimeInterval? = UserDefaults.standardDelay,
+        @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
         onboardingModal(
             id: id,
             store: store,
-            presentation: { try $0.presentAsDocumentGroupSheet() },
+            delay: delay,
+            presentation: .fullScreen,
             content: content
         )
     }
@@ -52,16 +53,17 @@ public extension DocumentGroup {
        - delay: The delay before presenting the onboarding, by default `0.5`.
        - content: The onboarding content.       
      */
-    func onboardingFullScreenCover<Content: DocumentGroupModal>(
+    func onboardingFullScreenCover<Contents: DocumentGroupModal>(
         id: String? = nil,
         store: UserDefaults? = nil,
-        delay: TimeInterval? = nil,
-        @ViewBuilder content: @escaping () -> Content
+        delay: TimeInterval? = UserDefaults.standardDelay,
+        @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
         onboardingModal(
             id: id,
             store: store,
-            presentation: { try $0.presentAsDocumentGroupFullScreenCover() },
+            delay: delay,
+            presentation: .fullScreen,
             content: content
         )
     }
@@ -69,23 +71,25 @@ public extension DocumentGroup {
 
 private extension DocumentGroup {
 
-    func onboardingModal<Content: DocumentGroupModal>(
+    private func onboardingModal<Contents: DocumentGroupModal>(
         id: String? = nil,
         store: UserDefaults? = nil,
-        delay: TimeInterval? = nil,
-        presentation: (Content) throws -> Void,
-        @ViewBuilder content: @escaping () -> Content
+        delay: TimeInterval? = UserDefaults.standardDelay,
+        presentation: UIModalPresentationStyle,
+        @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
         let store = store ?? .standard
-        let delay = delay ?? 0.5
-        // store.resetDocumentGroupOnboardingState(for: id)
+        // ensure that delay is never set to 0 else app will crash
+        let delay = delay ?? delay == 0 ? UserDefaults.standardDelay : delay!
+
         if store.documentGroupOnboardingState(for: id) { return self }
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             do {
-                try content().presentAsDocumentGroupFullScreenCover()
+                try content().presentAsDocumentGroupModal(presentation)
                 store.setDocumentGroupOnboardingState(to: true, for: id)
             } catch {
-                print("*** ERROR: \(error) ***")
+                // treat as mission critical
+                fatalError("*** Onboarding screen error: \(error) ***")
             }
         }
         return self

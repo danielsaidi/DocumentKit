@@ -16,15 +16,15 @@ public extension DocumentGroup {
      Try customizing the underlying document group browser.
      */
     func tryCustomizeBrowser(
-        delay: TimeInterval = 0.5,
-        _ action: @escaping DocumentGroupCustomization,
-        tryAgain: Bool = true
+        delay: TimeInterval = UserDefaults.standardDelay,
+        _ action: @escaping DocumentGroupCustomization
     ) -> DocumentGroup {
         if let group = documentBrowser {
             action(group)
         } else {
+            // retry once
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                _ = tryCustomizeBrowser(action, tryAgain: false)
+                _ = tryCustomizeBrowser(action)
             }
         }
         return self

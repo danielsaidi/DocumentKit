@@ -26,6 +26,7 @@ extension UIBarButtonItem {
  with the `additionalNavigationBarButtonItems` modifier.
  */
 public class DocumentGroupToolbarItem {
+    
     private let icon: UIImage?
     private let action: () -> Void
     private let customization: (UIBarButtonItem) -> Void

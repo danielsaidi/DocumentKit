@@ -61,6 +61,9 @@ struct MyApp: App {
             trailing: [...]
         )
         .showFileExtensions(true)
+        .onboardingSheet {
+            MyModalView()
+        }
     }
 }
 ```

@@ -6,6 +6,12 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.2
+
+This version adds the possibility to present splash screens. 
+
+
+
 ## 0.1.1
 
 This patch makes the `DocumentGroupModal` present functions available to all `View`s.

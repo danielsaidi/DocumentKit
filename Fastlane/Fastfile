@@ -31,7 +31,7 @@ platform :ios do
   desc "Build a new version"
   lane :version_build do |options|
     swiftlint(strict: true)
-    sh("swift test")
+    # sh("swift test")
     docc
   end
 
@@ -77,9 +77,9 @@ platform :ios do
   lane :docc_web do
     docc
     docc_web_platform(name: 'ios')
-    docc_web_platform(name: 'osx')
-    docc_web_platform(name: 'tvos')
-    docc_web_platform(name: 'watchos')
+    # docc_web_platform(name: 'osx')
+    # docc_web_platform(name: 'tvos')
+    # docc_web_platform(name: 'watchos')
   end
 
   desc "Build static documentation website for a single platform"

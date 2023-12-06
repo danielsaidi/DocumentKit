@@ -23,16 +23,15 @@ struct DemoLeadingCloseButtonViewModifier: ViewModifier {
 }
 
 extension View {
-
+    
     func withLeadingCloseButton() -> some View {
         self.modifier(DemoLeadingCloseButtonViewModifier())
     }
 }
 
-struct DemoCloseButton_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            Color.red.withLeadingCloseButton()
-        }
+#Preview {
+    
+    NavigationStack {
+        Color.red.withLeadingCloseButton()
     }
 }

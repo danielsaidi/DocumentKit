@@ -10,26 +10,27 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 extension UTType {
+    
     static var exampleText: UTType {
         UTType(importedAs: "com.example.plain-text")
     }
 }
 
 struct DemoDocument: FileDocument {
+    
     var text: String
 
     init(text: String = "Hello, world!") {
         self.text = text
     }
-
+    
     static var readableContentTypes: [UTType] { [.exampleText] }
-
+    
     init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents,
-              let string = String(data: data, encoding: .utf8)
-        else {
-            throw CocoaError(.fileReadCorruptFile)
-        }
+        guard
+            let data = configuration.file.regularFileContents,
+            let string = String(data: data, encoding: .utf8)
+        else { throw CocoaError(.fileReadCorruptFile) }
         text = string
     }
     

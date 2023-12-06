@@ -3,6 +3,7 @@
 //  Demo
 //
 //  Created by Daniel Saidi on 2023-05-26.
+//  Copyright © 2023 Daniel Saidi. All rights reserved.
 //
 
 import SwiftUI
@@ -37,19 +38,19 @@ struct DemoApp: App {
 
 private extension DocumentGroupToolbarItem {
 
-    // present the Onboarding view as a full sheet cover
+    // Present the Onboarding view as a full sheet cover
     static let onboarding = DocumentGroupToolbarItem(icon: .onboarding) {
         try? DemoOnboardingScreen()
             .presentAsDocumentGroupFullScreenCover()
     }
 
-    // present the settings view as a sheet
+    // Present the settings view as a sheet
     static let settings = DocumentGroupToolbarItem(icon: .settings) {
         try? DemoSettingsScreen()
             .presentAsDocumentGroupSheet()
     }
 
-    // present story details as a popOver below the .storyDetails icon
+    // Present story details as a popOver below the .storyDetails icon
     static let popover = DocumentGroupToolbarItem(icon: .popover) {
         try? DemoPopoverScreen()
             .presentAsDocumentGroupPopover()

@@ -20,8 +20,7 @@ struct DemoModal: View, DocumentGroupModal {
     }
 }
 
-struct DemoModal_Previews: PreviewProvider {
-    static var previews: some View {
-        DemoModal()
-    }
+#Preview {
+    
+    DemoModal()
 }

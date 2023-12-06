@@ -7,7 +7,7 @@ DocumentKit adds more capabilities to `DocumentGroup`-based apps.
 
 ![Library logotype](Logo.png)
 
-Document-based apps are currently limited when it comes to customization. For instance, you can't add custom toolbar items to the document browser, and since a `DocumentGroup` doesn't have a view until you open a document, you can't present initial onboarding screens or modals from it. 
+`DocumentGroup`-based apps are limited when it comes to customization. For instance, you can't add any custom items to the document browser toolbar, and since it has no view until you open a document, you can't present any initial onboarding screens or modals from it. 
 
 DocumentKit lets you do all these things, to let you create a better app experience for your document-based apps.
 

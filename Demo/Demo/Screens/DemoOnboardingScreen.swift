@@ -3,7 +3,7 @@
 //  Demo
 //
 //  Created by Daniel Saidi on 2023-05-26.
-//  Copyright © 2023 Daniel Saidi. All rights reserved.
+//  Copyright © 2023-2024 Daniel Saidi. All rights reserved.
 //
 
 import DocumentKit
@@ -19,11 +19,9 @@ struct DemoOnboardingScreen: View, DocumentGroupModal {
     var body: some View {
         NavigationStack {
             TabView {
-                Text("Page 1")
-                Text("Page 2")
-                Text("Page 3")
-                Text("Page 4")
-                Text("Page 5")
+                Text("Onboarding Page 1")
+                Text("Onboarding Page 2")
+                Text("Onboarding Page 3")
             }
             .withLeadingCloseButton()
             .navigationTitle("Onboarding")

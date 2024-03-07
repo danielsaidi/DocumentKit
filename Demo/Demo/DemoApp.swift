@@ -3,7 +3,7 @@
 //  Demo
 //
 //  Created by Daniel Saidi on 2023-05-26.
-//  Copyright © 2023 Daniel Saidi. All rights reserved.
+//  Copyright © 2023-2024 Daniel Saidi. All rights reserved.
 //
 
 import SwiftUI
@@ -24,8 +24,8 @@ struct DemoApp: App {
         // .allowsPickingMultipleItems(true)
         // .showFileExtensions(true)
         .additionalNavigationBarButtonItems(
-            leading: [.onboarding, .popover],
-            trailing: [.settings]
+            leading: [.onboardingItem, .popoverItem],
+            trailing: [.settingsItem]
         )
         .splashScreenSheet(delay: 0.5, dismissAfter: 3) {
             DemoSplashScreenSheet()
@@ -39,19 +39,19 @@ struct DemoApp: App {
 private extension DocumentGroupToolbarItem {
 
     // Present the Onboarding view as a full sheet cover
-    static let onboarding = DocumentGroupToolbarItem(icon: .onboarding) {
+    static let onboardingItem = DocumentGroupToolbarItem(icon: .onboarding) {
         try? DemoOnboardingScreen()
             .presentAsDocumentGroupFullScreenCover()
     }
 
     // Present the settings view as a sheet
-    static let settings = DocumentGroupToolbarItem(icon: .settings) {
+    static let settingsItem = DocumentGroupToolbarItem(icon: .settings) {
         try? DemoSettingsScreen()
             .presentAsDocumentGroupSheet()
     }
 
     // Present story details as a popOver below the .storyDetails icon
-    static let popover = DocumentGroupToolbarItem(icon: .popover) {
+    static let popoverItem = DocumentGroupToolbarItem(icon: .popover) {
         try? DemoPopoverScreen()
             .presentAsDocumentGroupPopover()
     }

@@ -3,7 +3,7 @@
 //  DocumentKit
 //
 //  Created by Daniel Saidi on 2023-05-26.
-//  Copyright © 2023 Daniel Saidi. All rights reserved.
+//  Copyright © 2023-2024 Daniel Saidi. All rights reserved.
 //
 
 import SwiftUI
@@ -32,7 +32,7 @@ public extension DocumentGroup {
             id: id,
             store: store,
             delay: delay,
-            presentation: .pageSheet,
+            style: .pageSheet,
             content: content
         )
     }
@@ -59,7 +59,7 @@ public extension DocumentGroup {
             id: id,
             store: store,
             delay: delay,
-            presentation: .fullScreen,
+            style: .fullScreen,
             content: content
         )
     }
@@ -89,7 +89,7 @@ public extension DocumentGroup {
             store: store,
             delay: delay,
             dismissAfter: dismissAfter,
-            presentation: .pageSheet,
+            style: .pageSheet,
             content: content
         )
     }
@@ -119,37 +119,51 @@ public extension DocumentGroup {
             store: store,
             delay: delay,
             dismissAfter: dismissAfter,
-            presentation: .fullScreen,
+            style: .fullScreen,
             content: content
         )
     }
 }
 
 private extension DocumentGroup {
-
+    
     private func onboardingPresentation<Contents: DocumentGroupModal>(
         id: String?,
         store: UserDefaults? = nil,
         delay: TimeInterval? = .defaultDocumentModalDelay,
         dismissAfter: TimeInterval? = nil,
-        presentation: UIModalPresentationStyle,
+        style: UIModalPresentationStyle,
         @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
         let store = store ?? .standard
+        if let id {
+            if store.documentPresentationState(for: id) { return self }
+            store.setDocumentPresentationState(to: true, for: id)
+        }
+        
+        return presentation(
+            id: id,
+            delay: delay,
+            dismissAfter: dismissAfter,
+            style: style,
+            content: content
+        )
+    }
+    
+    private func presentation<Contents: DocumentGroupModal>(
+        id: String?,
+        delay: TimeInterval? = .defaultDocumentModalDelay,
+        dismissAfter: TimeInterval? = nil,
+        style: UIModalPresentationStyle,
+        @ViewBuilder content: @escaping () -> Contents
+    ) -> DocumentGroup {
         let queue = DispatchQueue.main
         let defaultDelay = TimeInterval.defaultDocumentModalDelay
         let delay = max(0.1, delay ?? defaultDelay)
         
-        if let id, store.documentPresentationState(for: id) {
-            return self
-        }
-
         queue.asyncAfter(deadline: .now() + delay) {
             do {
-                try content().presentAsDocumentGroupModal(presentation)
-                if let id {
-                    store.setDocumentPresentationState(to: true, for: id)
-                }
+                try content().presentAsDocumentGroupModal(style)
             } catch {
                 // treat as mission critical
                 fatalError("*** Onboarding screen error: \(error) ***")

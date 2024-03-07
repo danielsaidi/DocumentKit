@@ -5,8 +5,7 @@ import PackageDescription
 let package = Package(
     name: "DocumentKit",
     platforms: [
-        .iOS(.v14),
-        .visionOS(.v1)
+        .iOS(.v14)
     ],
     products: [
         .library(

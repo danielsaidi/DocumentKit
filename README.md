@@ -57,55 +57,7 @@ struct MyApp: App {
 }
 ```
 
-DocumentKit also extends `DocumentGroup` with a modifier that lets you present an onboarding screen when the app starts for the first time:
-
-```swift
-@main
-struct DemoApp: App {
-
-    var body: some Scene {
-        DocumentGroup(newDocument: DemoDocument()) { file in
-            ContentView(document: file.$document)
-        }
-        .onboardingSheet {
-            MyOnboardingScreen()
-        }
-    }
-}
-
-struct MyOnboardingScreen: DocumentGroupModal {
-
-    var body: some View {
-        Text("Hello, onboarding!")
-    }
-}
-```
-
-Additionally, DocumentKit extends `DocumentGroup` with a modifier that lets you present a splash screen each time the app runs - both with a configurable option to stop presenting it and options to configure when it is presented (delay) and when it is automatically dissmissed (dismiss):
-
-```swift
-@main
-struct DemoApp: App {
-
-    var body: some Scene {
-        DocumentGroup(newDocument: DemoDocument()) { file in
-            ContentView(document: file.$document)
-        }
-        .splashScreenSheet(delay: 0.5, dismiss: 3) {
-            MySplashScreen()
-        }
-    }
-}
-
-struct MySplashScreen: DocumentGroupModal {
-
-    var body: some View {
-        Text("Hello, Splishy Splash screen!")
-    }
-}
-```
- 
-DocumentKit also lets the `DocumentGroup` present any `DocumentGroupModal` as a sheet, a full screen cover, or using any UIKit-specific modal presentation type.
+DocumentKit also extends `DocumentGroup` with a modifier that lets you present onboarding screens and splash screens when the app starts for the first time, let you inspect the underlying document group, etc.
 
 For more information, please see the [getting started guide][Getting-Started]. 
 
@@ -119,7 +71,7 @@ The [online documentation][Documentation] has more information, articles, code e
 
 ## Demo Application
 
-The demo app lets you explore the library with iOS, macOS, and visionOS. To try it out, just open and run the `Demo` project.
+The demo app lets you explore the library with iOS. To try it out, just open and run the `Demo` project.
 
 
 

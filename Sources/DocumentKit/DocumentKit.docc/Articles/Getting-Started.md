@@ -4,17 +4,48 @@ This article explains how to get started with DocumentKit.
 
 
 
+## The basics
+
+DocumentKit extends `DocumentGroup` with modifiers that let you add custom toolbar items, customize the document browser, etc.:
+
+```swift
+@main
+struct MyApp: App {
+
+    var body: some Scene {
+        DocumentGroup(newDocument: DemoDocument()) { file in
+            ContentView(document: file.$document)
+        }
+        .additionalNavigationBarButtonItems(
+            leading: [...],
+            trailing: [...]
+        )
+        .allowsDocumentCreation(true)
+        .allowsPickingMultipleItems(true)
+        .showFileExtensions(true)
+        .onboardingSheet {
+            MyOnboardingScreen()
+        }
+        .splashSheet {
+            MySplashScreen()
+        }
+    }
+}
+```
+
+DocumentKit also extends `DocumentGroup` with a modifier that lets you present onboarding screens and splash screens when the app starts for the first time, as described further down.
+
+
+
 ## How to inspect the document group
 
-DocumentKit has a ``DocumentGroupInspector`` protocol that lets you inspect a document group.
-
-Just let any type implement the protocol, then use it to access the current document browser:
+DocumentKit has a ``DocumentGroupInspector`` protocol that can be implemented by any type that should be able to inspect the current document group and its document browser, dismiss the current document, etc.:
 
 ```swift
 struct MyView: View, DocumentGroupInspector {
 
     var body: some View {
-        Text("Hello, modal!")
+        Button("Dismiss current document", action: dismissCurrentDocument)
     }
     
     var allowsDocumentCreation: Bool {
@@ -23,26 +54,13 @@ struct MyView: View, DocumentGroupInspector {
 }
 ```
 
-You can also use the protocol to dismiss the currently presented document:
-
-```swift
-struct MyButton: View, DocumentGroupInspector {
-
-    var body: some View {
-        Button("Dismiss", action: dismissCurrentDocument)
-    }
-}
-```
-
-> Important: Note that the `DocumentGroup` must have been presented for this to work. The internal functionality adds a security delay whenever needed, to ensure that the browser is available.
+The protocol provides you with the underlying UIKit views, which means that you have access to the full capabilities of the platform.
 
 
 
 ## How to customize the document browser
 
-DocumentKit has `DocumentGroup` extensions that let you modify the underlying document browser.
-
-For instance, you can add additional toolbar items, configure some properties and use `tryCustomizeBrowser` to perform any customization you want:
+DocumentKit has `DocumentGroup` view modifiers that let you modify the document browser:
 
 ```swift
 @main
@@ -63,21 +81,19 @@ struct MyApp: App {
         .allowsPickingMultipleItems(true)
         .showFileExtensions(true)
         .tryCustomizeBrowser { 
-            $0.allowsDocumentCreation = false 
+            $0.allowsDocumentCreation = true  // Same as using the modifier above
         }
     }
 }
 ```
 
-Since `tryCustomizeBrowser` is not as nice as using the other extensions, more extensions may be added in the future.  
+You can use these view modifiers to add additional toolbar items, and use `tryCustomizeBrowser` to configure the browser.  
 
 
 
-## How to present a modal screen
+## How to present modal screens from a document group
 
-DocumentKit has a ``DocumentGroupModal`` protocol that can present any SwiftUI view from any `DocumentGroup`. 
-
-Just let any view implement the protocol:
+DocumentKit has a ``DocumentGroupModal`` protocol that can be used to present any SwiftUI view from any `DocumentGroup`.
 
 ```swift
 struct MyModalView: DocumentGroupModal {
@@ -88,24 +104,24 @@ struct MyModalView: DocumentGroupModal {
 }
 ```
 
-then use any of the available view extensions to present it as a sheet, full screen cover, etc.:
+Just implement the protocol as above, to get access to handy modal presentation functions that can be used in e.g. sheet modifiers:
 
 ```swift
 MyModalView()
     .presentAsDocumentGroupSheet()
-    // .presentAsDocumentGroupFullScreenCover()
-    // .presentAsDocumentGroupModal(.overCurrentContext)
+    // or .presentAsDocumentGroupFullScreenCover()
+    // or .presentAsDocumentGroupModal(.overCurrentContext)
 ```
 
-This means that any SwiftUI view can be easily presented as a modal over any `DocumentGroup`.
+These capabilities are used to power DocumentKit's onboarding and splash screen capabilities, as described further down.
 
 
 
 ## How to present an initial onboarding screen
 
-We can also use the ``DocumentGroupModal`` protocol to open an initial onboarding screen when a `DocumentGroup`-based app starts.
+We can use the modal capabilities to open an initial onboarding when a `DocumentGroup`-based app is launched for the first time.
 
-All you have to do is to add an `onboardingSheet` or `onboardingFullScreenCover` to the `DocumentGroup`:
+All you have to do is to add an `onboardingSheet` or `onboardingFullScreenCover` modifier to the `DocumentGroup`:
 
 ```swift
 @main
@@ -114,24 +130,33 @@ struct MyApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: MyDocument()) { file in
             ContentView(document: file.$document)
-        }.onboardingSheet {
+        }
+        .onboardingSheet(id: "my-onboarding") {
             MyModalView()
         }
     }
 }
 ```
 
-This will present the onboarding screen *once*, after which it will not be shown again.
+This will present the onboarding screen *once*, after which it will never be shown again. If you want to present different onboarding experiences, you can provide a custom `id` value for each onboarding.
 
-If you want to present different onboarding experiences, you can provide a custom `id` for each onboarding. You can also provide a custom delay and your own `UserDefaults` store.
 
-If you want to programmatically get and set the presentation state of a certain onboarding, you can use the `documentGroupOnboardingState(...)`, `resetDocumentGroupOnboardingState(...)` and `setDocumentGroupOnboardingState(...)` `UserDefaults` extensions.
+
+## How to handle onboarding presentation state
+
+If you want to programmatically get and set the presentation state of a certain onboarding, you can use the `UserDefault` extensions that are provided by DocumentKit, like:
+
+* `documentGroupOnboardingState(...)`
+* `resetDocumentGroupOnboardingState(...)`
+* `setDocumentGroupOnboardingState(...)`
+
+This can let you control whether or not the next presentation attempt for a certain onboarding will actually present the screen.
 
 
 
 ## How to present a splash screen
 
-We can also use the ``DocumentGroupModal`` protocol to open a splash screen when a `DocumentGroup`-based app starts.
+We can also use the modal capabilities to open a splash screen when a `DocumentGroup`-based app is launched.
 
 All you have to do is to add an `splashScreenSheet` or `splashScreenFullScreenCover` to the `DocumentGroup`:
 
@@ -149,4 +174,4 @@ struct MyApp: App {
 }
 ```
 
-This will present the provided view every time, unless you give it a unique ID, which makes it display once.
+Unlike the onboarding modifier, this view modifier will present the splash screen at any time. You can use the view builder to return an `EmptyView` whenever you want no splash screen.  

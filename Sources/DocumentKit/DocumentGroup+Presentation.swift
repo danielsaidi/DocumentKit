@@ -84,9 +84,7 @@ public extension DocumentGroup {
         dismissAfter: TimeInterval? = .defaultDocumentModalDelay + 1,
         @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
-        onboardingPresentation(
-            id: id,
-            store: store,
+        presentation(
             delay: delay,
             dismissAfter: dismissAfter,
             style: .pageSheet,
@@ -114,9 +112,7 @@ public extension DocumentGroup {
         dismissAfter: TimeInterval? = .defaultDocumentModalDelay + 1,
         @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
-        onboardingPresentation(
-            id: id,
-            store: store,
+        presentation(
             delay: delay,
             dismissAfter: dismissAfter,
             style: .fullScreen,
@@ -142,7 +138,6 @@ private extension DocumentGroup {
         }
         
         return presentation(
-            id: id,
             delay: delay,
             dismissAfter: dismissAfter,
             style: style,
@@ -151,7 +146,6 @@ private extension DocumentGroup {
     }
     
     private func presentation<Contents: DocumentGroupModal>(
-        id: String?,
         delay: TimeInterval? = .defaultDocumentModalDelay,
         dismissAfter: TimeInterval? = nil,
         style: UIModalPresentationStyle,

@@ -6,6 +6,12 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.4
+
+This version adds support for visionOS. 
+
+
+
 ## 0.3
 
 This version bumps Swift to 5.9. 
@@ -15,14 +21,6 @@ This version bumps Swift to 5.9.
 ## 0.2
 
 This version adds the possibility to present splash screens. 
-
-
-
-## 0.1.1
-
-This patch makes the `DocumentGroupModal` present functions available to all `View`s.
-
-This is needed so that a modal can be modified before being presented. 
 
 
 

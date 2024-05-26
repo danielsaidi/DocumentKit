@@ -27,10 +27,10 @@ struct DemoApp: App {
             leading: [.onboardingItem, .popoverItem],
             trailing: [.settingsItem]
         )
-        .splashScreenSheet(delay: 0.5, dismissAfter: 3) {
+        .splashScreen(delay: 0.5, dismissAfter: 3) {
             DemoSplashScreenSheet()
         }
-        .onboardingSheet(id: "onboarding", delay: 4) {
+        .onboardingModal(id: "onboarding", delay: 4) {
             DemoOnboardingScreen()
         }
     }

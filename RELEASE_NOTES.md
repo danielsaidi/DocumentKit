@@ -12,9 +12,15 @@ This version adds support for Swift strict concurrency.
 
 This version also cleans up the ways a modal can be presented, by adding a new enum that can be used instead of having separate functions.
 
- ### ✨ Features
+### ✨ Features
 
+* `DocumentGroup.splashScreen` now supports conditional presentations.
 * `DocumentGroupModalType` is now used to avoid having several presentation functions where only the modal type differs. 
+
+### 💡 Adjustments
+
+* `DocumentGroup.onboardingModal` replaces the many earlier variations.
+* `DocumentGroup.splashScreen` replaces the many earlier variations.
 
 
 

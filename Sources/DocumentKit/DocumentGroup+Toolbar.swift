@@ -19,7 +19,7 @@ public extension DocumentGroup {
     ) -> DocumentGroup {
         let leading = leading.map { $0.barButtonItem }
         let trailing = trailing.map { $0.barButtonItem }
-        return tryCustomizeBrowser {
+        return tryCustomizeDocumentBrowser {
             $0.additionalLeadingNavigationBarButtonItems = leading
             $0.additionalTrailingNavigationBarButtonItems = trailing
         }

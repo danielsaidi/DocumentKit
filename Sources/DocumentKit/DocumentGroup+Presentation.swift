@@ -10,7 +10,7 @@ import SwiftUI
 
 public extension DocumentGroup {
 
-    /// Present an onboarding sheet when the app launches.
+    /// Present an onboarding modal when the app launches.
     ///
     /// The onboarding will only be presented once, and will
     /// never be presented again for the provided `id`.
@@ -21,118 +21,16 @@ public extension DocumentGroup {
     ///
     /// - Parameters:
     ///   - id: The onboarding ID.
+    ///   - type: The type of modal to use, by default a ``DocumentGroupModalType/sheet``.
     ///   - store: The persistency store, by default `.standard`.
-    ///   - delay: The delay before presenting the onboarding, by default `.defaultDocumentModalDelay`.
+    ///   - delay: The delay before presenting the onboarding.
     ///   - content: The onboarding content.
-    func onboardingSheet<Contents: DocumentGroupModal>(
-        id: String,
-        store: UserDefaults? = nil,
-        delay: TimeInterval? = .defaultDocumentModalDelay,
-        @ViewBuilder content: @escaping () -> Contents
-    ) -> DocumentGroup {
-        onboardingPresentation(
-            id: id,
-            store: store,
-            delay: delay,
-            style: .pageSheet,
-            content: content
-        )
-    }
-
-    /// Present an onboarding cover when the app launches.
-    ///
-    /// The onboarding will only be presented once, and will
-    /// never be presented again for the provided `id`.
-    ///
-    /// You can use ``Foundation/UserDefaults``'s onboarding
-    /// extensions to get and modify the onboarding state of
-    /// a certain onboarding.
-    ///
-    /// - Parameters:
-    ///   - id: The onboarding ID.
-    ///   - store: The persistency store, by default `.standard`.
-    ///   - delay: The delay before presenting the onboarding, by default `.defaultDocumentModalDelay`.
-    ///   - content: The onboarding content.
-    func onboardingFullScreenCover<Contents: DocumentGroupModal>(
-        id: String,
-        store: UserDefaults? = nil,
-        delay: TimeInterval? = .defaultDocumentModalDelay,
-        @ViewBuilder content: @escaping () -> Contents
-    ) -> DocumentGroup {
-        onboardingPresentation(
-            id: id,
-            store: store,
-            delay: delay,
-            style: .fullScreen,
-            content: content
-        )
-    }
-    
-    /**
-     Present a splash sheet when the application starts.
-
-     The splash screen will be presented every time your app
-     starts, unless you pass in an `id`.
-
-     - Parameters:
-       - id: The splash screen ID, by default `nil`.
-       - store: The persistency store, by default `.standard`.
-       - delay: The delay before presenting the splash screen, by default `.defaultDocumentModalDelay`.
-       - dismiss: The delay before dismissing the splash screen, by default `1`.
-       - content: The splash screen content.
-     */
-    func splashScreenSheet<Contents: DocumentGroupModal>(
-        id: String? = nil,
-        store: UserDefaults? = nil,
-        delay: TimeInterval? = .defaultDocumentModalDelay,
-        dismissAfter: TimeInterval? = .defaultDocumentModalDelay + 1,
-        @ViewBuilder content: @escaping () -> Contents
-    ) -> DocumentGroup {
-        presentation(
-            delay: delay,
-            dismissAfter: dismissAfter,
-            style: .pageSheet,
-            content: content
-        )
-    }
-
-    /**
-     Present a splash cover when the application starts.
-
-     The splash screen will be presented every time your app
-     starts, unless you pass in an `id`.
-
-     - Parameters:
-       - id: The splash screen ID, by default `nil`.
-       - store: The persistency store, by default `.standard`.
-       - delay: The delay before presenting the splash screen, by default `.defaultDocumentModalDelay`.
-       - dismiss: The delay before dismissing the splash screen, by default `1`.
-       - content: The splash screen content.
-     */
-    func splashScreenFullScreenCover<Contents: DocumentGroupModal>(
-        id: String? = nil,
-        store: UserDefaults? = nil,
-        delay: TimeInterval? = .defaultDocumentModalDelay,
-        dismissAfter: TimeInterval? = .defaultDocumentModalDelay + 1,
-        @ViewBuilder content: @escaping () -> Contents
-    ) -> DocumentGroup {
-        presentation(
-            delay: delay,
-            dismissAfter: dismissAfter,
-            style: .fullScreen,
-            content: content
-        )
-    }
-}
-
-private extension DocumentGroup {
-    
-    func onboardingPresentation<Contents: DocumentGroupModal>(
+    func onboardingModal<Contents: DocumentGroupModal>(
         id: String?,
+        type: DocumentGroupModalType = .sheet,
         store: UserDefaults? = nil,
         delay: TimeInterval? = .defaultDocumentModalDelay,
         dismissAfter: TimeInterval? = nil,
-        style: UIModalPresentationStyle,
         @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
         let store = store ?? .standard
@@ -140,19 +38,54 @@ private extension DocumentGroup {
             if store.documentPresentationState(for: id) { return self }
             store.setDocumentPresentationState(to: true, for: id)
         }
-        
-        return presentation(
+
+        return modal(
+            type: type,
             delay: delay,
             dismissAfter: dismissAfter,
-            style: style,
             content: content
         )
     }
-    
-    func presentation<Contents: DocumentGroupModal>(
+
+    /// Present a splash screen when the app launches.
+    ///
+    /// The splash screen is only be presented if a provided
+    /// condition is true.
+    ///
+    /// - Parameters:
+    ///   - if: The splash screen condition, by default `true`.
+    ///   - type: The type of modal to use, by default a ``DocumentGroupModalType/sheet``.
+    ///   - store: The persistency store, by default `.standard`.
+    ///   - delay: The delay before presenting the onboarding.
+    ///   - content: The onboarding content.
+    func splashScreen<Contents: DocumentGroupModal>(
+        if condition: Bool = true,
+        type: DocumentGroupModalType = .sheet,
+        store: UserDefaults? = nil,
         delay: TimeInterval? = .defaultDocumentModalDelay,
         dismissAfter: TimeInterval? = nil,
-        style: UIModalPresentationStyle,
+        @ViewBuilder content: @escaping () -> Contents
+    ) -> DocumentGroup {
+        guard condition else { return self }
+        return modal(
+            type: type,
+            delay: delay,
+            dismissAfter: dismissAfter,
+            content: content
+        )
+    }
+
+    /// Present a modal view.
+    ///
+    /// - Parameters:
+    ///   - type: The type of modal to use.
+    ///   - delay: The delay before presenting the onboarding.
+    ///   - dismissAfter: The delay before dismissing the view.
+    ///   - content: The onboarding content.
+    func modal<Contents: DocumentGroupModal>(
+        type: DocumentGroupModalType,
+        delay: TimeInterval? = .defaultDocumentModalDelay,
+        dismissAfter: TimeInterval? = nil,
         @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
         let queue = DispatchQueue.main
@@ -161,7 +94,7 @@ private extension DocumentGroup {
 
         queue.asyncAfter(deadline: .now() + delay) {
             do {
-                try content().presentAsDocumentGroupModal(.custom(style))
+                try content().presentAsDocumentGroupModal(type)
             } catch {
                 // treat as mission critical
                 fatalError("*** Onboarding screen error: \(error) ***")

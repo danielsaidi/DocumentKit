@@ -8,23 +8,25 @@
 
 import UIKit
 
-/**
- Extension to UIBarButtonItem to mark it as selected for Popover anchoring.
- Note that only one UIBarButtonItem can be selected concurrently (which in
- practice seems favorable).
- */
+/// This extension marks `UIBarButtonItem` as selected for a
+/// popover anchoring. Note that only one single item can be
+/// selected concurrently.
 extension UIBarButtonItem {
     static var selected = false
     static var selectedItem: UIBarButtonItem?
 }
 
-/**
- This struct can be used to add custom toolbar items to your
- `DocumentGroup`.
-
- You can add leading and trailing items to a `DocumentGroup`,
- with the `additionalNavigationBarButtonItems` modifier.
- */
+/// This struct can be used to add custom toolbar items to a
+/// ``SwiftUI/DocumentGroup``.
+///
+/// You can add leading and trailing items to a group, using
+/// the ``SwiftUI/DocumentGroup/additionalNavigationBarButtonItems(leading:trailing:)``
+/// view modifier.
+///
+/// You can use the `customization` parameter to customize a
+/// bar button item's native view. This can be used to apply
+/// additional properties, like accessibility.
+@MainActor
 public class DocumentGroupToolbarItem {
     
     private let icon: UIImage?

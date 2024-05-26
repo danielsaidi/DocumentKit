@@ -11,5 +11,5 @@ import Foundation
 public extension TimeInterval {
     
     /// The default delay time for modals to appeaer
-    static var defaultDocumentModalDelay = 0.5
+    static var defaultDocumentModalDelay: Self { 0.5 }
 }

@@ -6,6 +6,18 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.5
+
+This version adds support for Swift strict concurrency.
+
+This version also cleans up the ways a modal can be presented, by adding a new enum that can be used instead of having separate functions.
+
+ ### ✨ Features
+
+* `DocumentGroupModalType` is now used to avoid having several presentation functions where only the modal type differs. 
+
+
+
 ## 0.4
 
 This version adds support for visionOS. 

@@ -11,3 +11,8 @@ public extension DocumentGroup {
         tryCustomizeDocumentBrowser(delay: delay, action)
     }
 }
+
+public extension DocumentGroupModal {
+
+    
+}

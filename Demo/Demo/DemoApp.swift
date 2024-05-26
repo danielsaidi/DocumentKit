@@ -42,19 +42,19 @@ private extension DocumentGroupToolbarItem {
     // Present the Onboarding view as a full sheet cover
     static let onboardingItem = DocumentGroupToolbarItem(icon: .onboarding) {
         try? DemoOnboardingScreen()
-            .presentAsDocumentGroupFullScreenCover()
+            .presentAsDocumentGroupModal(.fullScreenCover)
     }
 
     // Present the settings view as a sheet
     static let settingsItem = DocumentGroupToolbarItem(icon: .settings) {
         try? DemoSettingsScreen()
-            .presentAsDocumentGroupSheet()
+            .presentAsDocumentGroupModal(.sheet)
     }
 
     // Present story details as a popOver below the .storyDetails icon
     static let popoverItem = DocumentGroupToolbarItem(icon: .popover) {
         try? DemoPopoverScreen()
-            .presentAsDocumentGroupPopover()
+            .presentAsDocumentGroupModal(.popover)
     }
 }
 

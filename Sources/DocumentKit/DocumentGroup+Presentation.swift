@@ -10,18 +10,20 @@ import SwiftUI
 
 public extension DocumentGroup {
 
-    /**
-     Present an onboarding sheet when the application starts.
-
-     The onboarding will only be presented once, after which
-     you can use `UserDefaults` to handle state for the `id`.
-
-     - Parameters:
-       - id: The onboarding ID.
-       - store: The persistency store, by default `.standard`.
-       - delay: The delay before presenting the onboarding, by default `.defaultDocumentModalDelay`.
-       - content: The onboarding content.
-     */
+    /// Present an onboarding sheet when the app launches.
+    ///
+    /// The onboarding will only be presented once, and will
+    /// never be presented again for the provided `id`.
+    ///
+    /// You can use ``Foundation/UserDefaults``'s onboarding
+    /// extensions to get and modify the onboarding state of
+    /// a certain onboarding.
+    ///
+    /// - Parameters:
+    ///   - id: The onboarding ID.
+    ///   - store: The persistency store, by default `.standard`.
+    ///   - delay: The delay before presenting the onboarding, by default `.defaultDocumentModalDelay`.
+    ///   - content: The onboarding content.
     func onboardingSheet<Contents: DocumentGroupModal>(
         id: String,
         store: UserDefaults? = nil,
@@ -37,18 +39,20 @@ public extension DocumentGroup {
         )
     }
 
-    /**
-     Present an onboarding cover when the application starts.
-
-     The onboarding will only be presented once, after which
-     you can use `UserDefaults` to handle state for the `id`.
-
-     - Parameters:
-       - id: The onboarding ID.
-       - store: The persistency store, by default `.standard`.
-       - delay: The delay before presenting the onboarding, by default `.defaultDocumentModalDelay`.
-       - content: The onboarding content.       
-     */
+    /// Present an onboarding cover when the app launches.
+    ///
+    /// The onboarding will only be presented once, and will
+    /// never be presented again for the provided `id`.
+    ///
+    /// You can use ``Foundation/UserDefaults``'s onboarding
+    /// extensions to get and modify the onboarding state of
+    /// a certain onboarding.
+    ///
+    /// - Parameters:
+    ///   - id: The onboarding ID.
+    ///   - store: The persistency store, by default `.standard`.
+    ///   - delay: The delay before presenting the onboarding, by default `.defaultDocumentModalDelay`.
+    ///   - content: The onboarding content.
     func onboardingFullScreenCover<Contents: DocumentGroupModal>(
         id: String,
         store: UserDefaults? = nil,
@@ -123,7 +127,7 @@ public extension DocumentGroup {
 
 private extension DocumentGroup {
     
-    private func onboardingPresentation<Contents: DocumentGroupModal>(
+    func onboardingPresentation<Contents: DocumentGroupModal>(
         id: String?,
         store: UserDefaults? = nil,
         delay: TimeInterval? = .defaultDocumentModalDelay,
@@ -145,7 +149,7 @@ private extension DocumentGroup {
         )
     }
     
-    private func presentation<Contents: DocumentGroupModal>(
+    func presentation<Contents: DocumentGroupModal>(
         delay: TimeInterval? = .defaultDocumentModalDelay,
         dismissAfter: TimeInterval? = nil,
         style: UIModalPresentationStyle,
@@ -154,10 +158,10 @@ private extension DocumentGroup {
         let queue = DispatchQueue.main
         let defaultDelay = TimeInterval.defaultDocumentModalDelay
         let delay = max(0.1, delay ?? defaultDelay)
-        
+
         queue.asyncAfter(deadline: .now() + delay) {
             do {
-                try content().presentAsDocumentGroupModal(style)
+                try content().presentAsDocumentGroupModal(.custom(style))
             } catch {
                 // treat as mission critical
                 fatalError("*** Onboarding screen error: \(error) ***")

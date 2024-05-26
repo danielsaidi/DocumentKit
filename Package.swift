@@ -19,7 +19,7 @@ let package = Package(
             name: "DocumentKit",
             dependencies: [],
             swiftSettings: [
-                .enableExperimentalFeature("StrictConcurrency")
+                // .enableExperimentalFeature("StrictConcurrency")
             ]
         ),
         .testTarget(

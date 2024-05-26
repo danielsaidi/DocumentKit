@@ -18,17 +18,32 @@ import SwiftUI
  */
 public protocol DocumentGroupModal: View, DocumentGroupInspector {
 
-    /// Present the view as a document group sheet.
-    func presentAsDocumentGroupSheet() throws
-
-    /// Present the view as a document group cover.
-    func presentAsDocumentGroupFullScreenCover() throws
-
-    /// Present the view as a document group popover.
-    func presentAsDocumentGroupPopover() throws
-
     /// Present the view as a document group modal.
-    func presentAsDocumentGroupModal(_ style: UIModalPresentationStyle ) throws
+    ///
+    /// Popup modals are handled specially due to IOS bug:
+    /// https://github.com/expo/expo/issues/22192.
+    func presentAsDocumentGroupModal(
+        _ type: DocumentGroupModalType
+    ) throws
+}
+
+/// This enum defines the supported document group modals.
+public enum DocumentGroupModalType {
+
+    case sheet, fullScreenCover, popover, custom(_ style: UIModalPresentationStyle)
+}
+
+public extension DocumentGroupModalType {
+
+    /// The native presentation style to use.
+    var presentationStyle: UIModalPresentationStyle {
+        switch self {
+        case .sheet: .automatic
+        case .fullScreenCover: .fullScreen
+        case .popover: .popover
+        case .custom(let style): style
+        }
+    }
 }
 
 /// This internal inspector is used by the view extensions.
@@ -40,40 +55,28 @@ private final class InternalInspector: DocumentGroupInspector, Sendable {
 @MainActor
 public extension View {
 
-    /// Present the view as a document group sheet.
-    func presentAsDocumentGroupSheet() throws {
-        try presentAsDocumentGroupModal(.automatic)
-    }
-
-    /// Present the view as a document group cover.
-    func presentAsDocumentGroupFullScreenCover() throws {
-        try presentAsDocumentGroupModal(.fullScreen)
-    }
-
-    /// Present the view as a document group popover.
-    func presentAsDocumentGroupPopover() throws {
-        try presentAsDocumentGroupModal(.popover)
-    }
-
-    /**
-     Present the view as a document group modal.
-     popup modals are handled specially due to IOS bug: https://github.com/expo/expo/issues/22192.
-     */
-    func presentAsDocumentGroupModal(_ style: UIModalPresentationStyle) throws {
+    /// Present the view as a document group modal.
+    ///
+    /// Popup modals are handled with some iOS 16 hacks, due
+    /// to a bug: https://github.com/expo/expo/issues/22192.
+    func presentAsDocumentGroupModal(
+        _ type: DocumentGroupModalType
+    ) throws {
         let inspector = InternalInspector.shared
         guard let parent = inspector.rootViewController else { throw DocumentGroupError.noParentWindow }
         let controller = UIHostingController(rootView: self)
-        controller.modalPresentationStyle = style
+        controller.modalPresentationStyle = type.presentationStyle
         controller.isModalInPresentation = false
         let rootView = controller.view
         if inspector.documentBrowser == nil { return }
 
-        // handle popover positioning
+        // Handle popover positioning
         if let popover: UIPopoverPresentationController = controller.popoverPresentationController {
             if #available(iOS 16.0, *) {
                 popover.sourceItem = UIBarButtonItem.selectedItem
             } else {
-                // before iOS 16, the best we can do is show popover at origin
+                /// Before iOS 16, the best we can do, is to
+                /// show popover at the root view origin.
                 popover.sourceView = rootView
                 popover.sourceRect = rootView?.bounds ?? CGRect()
             }

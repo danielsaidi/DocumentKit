@@ -16,7 +16,7 @@ import SwiftUI
  SwiftUI views, since you must be able to present views with
  applied view modifiers.
  */
-public protocol DocumentGroupModal: View, DocumentGroupInspector {
+public protocol DocumentGroupModal: View, DocumentGroupInspector, Sendable {
 
     /// Present the view as a document group modal.
     ///
@@ -28,7 +28,7 @@ public protocol DocumentGroupModal: View, DocumentGroupInspector {
 }
 
 /// This enum defines the supported document group modals.
-public enum DocumentGroupModalType {
+public enum DocumentGroupModalType: Sendable {
 
     case sheet, fullScreenCover, popover, custom(_ style: UIModalPresentationStyle)
 }

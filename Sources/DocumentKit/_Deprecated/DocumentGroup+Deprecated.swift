@@ -51,7 +51,7 @@ public extension DocumentGroup {
         dismissAfter: TimeInterval? = .defaultDocumentModalDelay + 1,
         @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
-        modal(
+        splashScreen(
             type: .sheet,
             delay: delay,
             dismissAfter: dismissAfter,
@@ -67,7 +67,7 @@ public extension DocumentGroup {
         dismissAfter: TimeInterval? = .defaultDocumentModalDelay + 1,
         @ViewBuilder content: @escaping () -> Contents
     ) -> DocumentGroup {
-        modal(
+        splashScreen(
             type: .fullScreenCover,
             delay: delay,
             dismissAfter: dismissAfter,

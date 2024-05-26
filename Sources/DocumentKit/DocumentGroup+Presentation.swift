@@ -43,7 +43,7 @@ public extension DocumentGroup {
             type: type,
             delay: delay,
             dismissAfter: dismissAfter,
-            content: content
+            content: content()
         )
     }
 
@@ -71,7 +71,7 @@ public extension DocumentGroup {
             type: type,
             delay: delay,
             dismissAfter: dismissAfter,
-            content: content
+            content: content()
         )
     }
 
@@ -86,7 +86,7 @@ public extension DocumentGroup {
         type: DocumentGroupModalType,
         delay: TimeInterval? = .defaultDocumentModalDelay,
         dismissAfter: TimeInterval? = nil,
-        @ViewBuilder content: @escaping () -> Contents
+        content: Contents
     ) -> DocumentGroup {
         let queue = DispatchQueue.main
         let defaultDelay = TimeInterval.defaultDocumentModalDelay
@@ -94,7 +94,7 @@ public extension DocumentGroup {
 
         queue.asyncAfter(deadline: .now() + delay) {
             do {
-                try content().presentAsDocumentGroupModal(type)
+                try content.presentAsDocumentGroupModal(type)
             } catch {
                 // treat as mission critical
                 fatalError("*** Onboarding screen error: \(error) ***")
@@ -110,3 +110,5 @@ public extension DocumentGroup {
         return self
     }
 }
+
+extension DocumentGroup: @unchecked Sendable {}

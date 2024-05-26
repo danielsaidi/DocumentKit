@@ -21,6 +21,7 @@ This version also cleans up the ways a modal can be presented, by adding a new e
 
 * `DocumentGroup.onboardingModal` replaces the many earlier variations.
 * `DocumentGroup.splashScreen` replaces the many earlier variations.
+* `DocumentGroupModal` now conforms to `Sendable` to work within modals. 
 
 
 

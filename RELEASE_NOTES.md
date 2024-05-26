@@ -6,9 +6,9 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
-## 0.5
+## 0.4
 
-This version adds support for Swift strict concurrency.
+This version adds support for visionOS and Swift strict concurrency.
 
 This version also cleans up the ways a modal can be presented, by adding a new enum that can be used instead of having separate functions.
 
@@ -22,12 +22,6 @@ This version also cleans up the ways a modal can be presented, by adding a new e
 * `DocumentGroup.onboardingModal` replaces the many earlier variations.
 * `DocumentGroup.splashScreen` replaces the many earlier variations.
 * `DocumentGroupModal` now conforms to `Sendable` to work within modals. 
-
-
-
-## 0.4
-
-This version adds support for visionOS. 
 
 
 

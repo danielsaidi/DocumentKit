@@ -36,6 +36,7 @@ struct DemoApp: App {
     }
 }
 
+@MainActor
 private extension DocumentGroupToolbarItem {
 
     // Present the Onboarding view as a full sheet cover

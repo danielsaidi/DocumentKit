@@ -17,7 +17,10 @@ let package = Package(
     targets: [
         .target(
             name: "DocumentKit",
-            dependencies: []
+            dependencies: [],
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency")
+            ]
         ),
         .testTarget(
             name: "DocumentKitTests",

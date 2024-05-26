@@ -32,11 +32,12 @@ public protocol DocumentGroupModal: View, DocumentGroupInspector {
 }
 
 /// This internal inspector is used by the view extensions.
-private class InternalInspector: DocumentGroupInspector {
+private final class InternalInspector: DocumentGroupInspector, Sendable {
 
-    static var shared = InternalInspector()
+    static let shared = InternalInspector()
 }
 
+@MainActor
 public extension View {
 
     /// Present the view as a document group sheet.

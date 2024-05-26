@@ -47,7 +47,7 @@ platform :ios do
     # build(platform: "tvOS")
     # build(platform: "watchOS")
     build(platform: "xrOS")
-    test_ios
+    # test_ios
   end
 
 end

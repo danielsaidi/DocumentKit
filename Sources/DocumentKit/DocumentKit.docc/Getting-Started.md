@@ -6,7 +6,7 @@ This article explains how to get started with DocumentKit.
 
 ## The basics
 
-DocumentKit extends `DocumentGroup` with modifiers that let you add custom toolbar items, customize the document browser, etc.:
+DocumentKit extends ``SwiftUI/DocumentGroup`` with modifiers that let you add custom toolbar items, customize the document browser, etc.:
 
 ```swift
 @main
@@ -33,7 +33,7 @@ struct MyApp: App {
 }
 ```
 
-DocumentKit also extends `DocumentGroup` with a modifier that lets you present onboarding screens and splash screens when the app starts for the first time, as described further down.
+DocumentKit also extends ``SwiftUI/DocumentGroup`` with view modifiers that let you present onboarding modals and splash screens when the app starts for the first time, as described further down.
 
 
 
@@ -60,7 +60,7 @@ The protocol provides you with the underlying UIKit views, which means that you 
 
 ## How to customize the document browser
 
-DocumentKit has `DocumentGroup` view modifiers that let you modify the document browser:
+DocumentKit has ``SwiftUI/DocumentGroup`` view modifiers that let you add custom toolbar items and modify the wrapped document browser:
 
 ```swift
 @main
@@ -80,14 +80,14 @@ struct MyApp: App {
         .allowsDocumentCreation(true)
         .allowsPickingMultipleItems(true)
         .showFileExtensions(true)
-        .tryCustomizeBrowser { 
+        .tryCustomizeDocumentBrowser { 
             $0.allowsDocumentCreation = true  // Same as using the modifier above
         }
     }
 }
 ```
 
-You can use these view modifiers to add additional toolbar items, and use `tryCustomizeBrowser` to configure the browser.  
+You can also use ``SwiftUI/DocumentGroup/tryCustomizeDocumentBrowser(delay:_:)`` to configure the browser in ways that are not supported by the view modifiers that are provided by the SDK.
 
 
 
@@ -104,13 +104,14 @@ struct MyModalView: DocumentGroupModal {
 }
 ```
 
-Just implement the protocol as above, to get access to handy modal presentation functions that can be used in e.g. sheet modifiers:
+Just implement the protocol as above, to get access to a  presentation function that lets you present the view in many different ways:
 
 ```swift
 MyModalView()
-    .presentAsDocumentGroupSheet()
-    // or .presentAsDocumentGroupFullScreenCover()
-    // or .presentAsDocumentGroupModal(.overCurrentContext)
+    .presentAsDocumentGroupModal(.sheet)
+    // or .presentAsDocumentGroupModal(.fullScreenCover)
+    // or .presentAsDocumentGroupModal(.popover)
+    // or any native presentation style
 ```
 
 These capabilities are used to power DocumentKit's onboarding and splash screen capabilities, as described further down.
@@ -119,9 +120,9 @@ These capabilities are used to power DocumentKit's onboarding and splash screen 
 
 ## How to present an initial onboarding screen
 
-We can use the modal capabilities to open an initial onboarding when a `DocumentGroup`-based app is launched for the first time.
+We can use the modal capabilities to open an initial onboarding when a ``SwiftUI/DocumentGroup``-based app is launched for the first time.
 
-All you have to do is to add an `onboardingSheet` or `onboardingFullScreenCover` modifier to the `DocumentGroup`:
+You just have to add an ``SwiftUI/DocumentGroup/onboardingModal(id:type:store:delay:dismissAfter:content:)`` modifier to the group, to make it present the onboarding modal when the app launches:
 
 ```swift
 @main
@@ -131,34 +132,24 @@ struct MyApp: App {
         DocumentGroup(newDocument: MyDocument()) { file in
             ContentView(document: file.$document)
         }
-        .onboardingSheet(id: "my-onboarding") {
+        .onboardingModal(id: "my-onboarding") {
             MyModalView()
         }
     }
 }
 ```
 
-This will present the onboarding screen *once*, after which it will never be shown again. If you want to present different onboarding experiences, you can provide a custom `id` value for each onboarding.
+This will present the onboarding id *once*, after which it will never be shown again. You can use the ``Foundation/UserDefaults`` extensions that are provided by DocumentKit, to get and set the presentation state of an onboarding.
 
-
-
-## How to handle onboarding presentation state
-
-If you want to programmatically get and set the presentation state of a certain onboarding, you can use the `UserDefault` extensions that are provided by DocumentKit, like:
-
-* `documentGroupOnboardingState(...)`
-* `resetDocumentGroupOnboardingState(...)`
-* `setDocumentGroupOnboardingState(...)`
-
-This can let you control whether or not the next presentation attempt for a certain onboarding will actually present the screen.
+This lets you control whether or not the next presentation attempt for a certain onboarding will actually present the content or not.
 
 
 
 ## How to present a splash screen
 
-We can also use the modal capabilities to open a splash screen when a `DocumentGroup`-based app is launched.
+We can use the modal capabilities to open an initial onboarding when a ``SwiftUI/DocumentGroup``-based app is launched.
 
-All you have to do is to add an `splashScreenSheet` or `splashScreenFullScreenCover` to the `DocumentGroup`:
+You just have to add an ``SwiftUI/DocumentGroup/splashScreen(if:type:store:delay:dismissAfter:content:)`` modifier to the group, to make it present the splash screen when the app launches:
 
 ```swift
 @main
@@ -167,11 +158,12 @@ struct MyApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: MyDocument()) { file in
             ContentView(document: file.$document)
-        }.splashScreenSheet {
+        }
+        .splashScreenSheet {
             MyModalView()
         }
     }
 }
 ```
 
-Unlike the onboarding modifier, this view modifier will present the splash screen at any time. You can use the view builder to return an `EmptyView` whenever you want no splash screen.  
+Unlike the onboarding modifier, this view modifier will present the splash screen at any time. You can use the view builder to return an `EmptyView` whenever you want no splash screen, or use the `if` condition parameter.  

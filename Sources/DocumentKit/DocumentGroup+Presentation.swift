@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@MainActor
 public extension DocumentGroup {
 
     /// Present an onboarding modal when the app launches.
@@ -88,11 +89,10 @@ public extension DocumentGroup {
         dismissAfter: TimeInterval? = nil,
         content: Contents
     ) -> DocumentGroup {
-        let queue = DispatchQueue.main
         let defaultDelay = TimeInterval.defaultDocumentModalDelay
         let delay = max(0.1, delay ?? defaultDelay)
 
-        queue.asyncAfter(deadline: .now() + delay) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             do {
                 try content.presentAsDocumentGroupModal(type)
             } catch {
@@ -102,7 +102,7 @@ public extension DocumentGroup {
         }
         
         if let dismiss = dismissAfter {
-            queue.asyncAfter(deadline: .now() + delay + dismiss) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay + dismiss) {
                 dismissCurrentDocument()
             }
         }

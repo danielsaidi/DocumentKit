@@ -11,8 +11,8 @@ import SwiftUI
 @MainActor
 public extension DocumentGroup {
 
-    /// Add additional leading and trailing bar items to the
-    /// document group.
+    /// Add additional leading and trailing toolbar items to
+    /// the document group.
     func additionalNavigationBarButtonItems(
         leading: [DocumentGroupToolbarItem] = [],
         trailing: [DocumentGroupToolbarItem] = []

@@ -8,16 +8,15 @@
 
 import SwiftUI
 
-/**
- This protocol can be implemented by any type that should be
- able to inspect the current `DocumentGroup`.
-
- The protocol is automatically implemented by `DocumentGroup`.
- */
+/// This protocol can be implemented by any type that should
+/// be able to inspect the current ``SwiftUI/DocumentGroup``.
+///
+/// The protocol is implemented by ``SwiftUI/DocumentGroup``.
 public protocol DocumentGroupInspector {}
 
 extension DocumentGroup: DocumentGroupInspector {}
 
+@MainActor
 public extension DocumentGroupInspector {
 
     /// Get the current `UIDocumentBrowserViewController`.
@@ -31,13 +30,8 @@ public extension DocumentGroupInspector {
     }
 
     /// Dismiss the currently opened document, if any.
-    func dismissCurrentDocument() {
-        dismissCurrentDocument {}
-    }
-
-    /// Dismiss the currently opened document, if any.
-    private func dismissCurrentDocument(
-        completion: @escaping () -> Void
+    func dismissCurrentDocument(
+        completion: @escaping () -> Void = {}
     ) {
         rootViewController?.dismiss(
             animated: true,
@@ -46,6 +40,7 @@ public extension DocumentGroupInspector {
     }
 }
 
+@MainActor
 private extension DocumentGroupInspector {
 
     var keyWindow: UIWindow? {

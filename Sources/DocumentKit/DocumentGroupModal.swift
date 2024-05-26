@@ -8,14 +8,8 @@
 
 import SwiftUI
 
-/**
- This protocol can be implemented by any view, that you have
- to be able to open from a document group.
-
- Note that these presentation functions are available to all
- SwiftUI views, since you must be able to present views with
- applied view modifiers.
- */
+/// This protocol can be implemented by any view, to make it
+/// possible to open it from a document group.
 public protocol DocumentGroupModal: View, DocumentGroupInspector, Sendable {
 
     /// Present the view as a document group modal.

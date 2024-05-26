@@ -14,8 +14,8 @@ public extension DocumentGroup {
     /// Set if the document group allows document creation.
     ///
     /// > Warning: If you set this to `true` when also using
-    /// ``SwiftUI/DocumentGroup/additionalNavigationBarButtonItems(leading:trailing:)``
-    /// the document creation button will be removed.
+    /// `additionalNavigationBarButtonItems(...)` the button
+    /// will be removed.
     func allowsDocumentCreation(_ value: Bool) -> DocumentGroup {
         tryCustomizeDocumentBrowser {
             $0.allowsDocumentCreation = value

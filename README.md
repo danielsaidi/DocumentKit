@@ -15,11 +15,13 @@
 
 ## About DocumentKit
 
-DocumentKit is a Swift SDK that adds more capabilities to `DocumentGroup`-based apps in SwiftUI.
+DocumentKit is an SDK that adds more capabilities to `DocumentGroup`-based SwiftUI apps.
 
-`DocumentGroup`-based apps are in general quite limited when it comes to customization. For instance, you can't add custom items to the document browser toolbar. Also, since a `DocumentGroup` has no view until you open a document, you can't present any initial onboarding screens or modals from it. 
+`DocumentGroup`-based apps are in general quite limited when it comes to customization. For instance, you can't add custom items to the document browser toolbar. 
 
-DocumentKit lets you do all these things, to let you create a better user experience for your document-based apps.
+Also, since a `DocumentGroup` has no view until you open a document, you can't present any initial onboarding screens or modals from it. 
+
+DocumentKit makes it easy to do all these things, to let you create a better user experience for your document-based apps.
 
 
 
@@ -49,15 +51,20 @@ struct MyApp: App {
             leading: [...],
             trailing: [...]
         )
+        .allowsDocumentCreation(true)
+        .allowsPickingMultipleItems(true)
         .showFileExtensions(true)
         .onboardingSheet {
-            MyModalView()
+            MyOnboardingScreen()
+        }
+        .splashSheet {
+            MySplashScreen()
         }
     }
 }
 ```
 
-DocumentKit also extends `DocumentGroup` with a modifier that lets you present onboarding screens and splash screens when the app starts for the first time, let you inspect the underlying document group, etc.
+DocumentKit also extends `DocumentGroup` with modifiers that let you present onboarding modals and splash screens when the app launches, lets you inspect the underlying document browser, etc.
 
 For more information, please see the [getting started guide][Getting-Started]. 
 

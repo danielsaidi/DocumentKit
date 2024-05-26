@@ -8,10 +8,7 @@
 
 import SwiftUI
 
-/**
- This enum defines errors that can be thrown when handling a
- `DocumentGroup` with the library.
- */
+/// This enum defines document group-related errors.
 public enum DocumentGroupError: Error, Equatable {
 
     /// There was no requires parent window.

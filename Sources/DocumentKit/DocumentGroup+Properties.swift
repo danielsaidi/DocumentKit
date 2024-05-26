@@ -8,30 +8,31 @@
 
 import SwiftUI
 
+@MainActor
 public extension DocumentGroup {
 
-    /**
-     Whether or not to allow document creation.
-
-     > Warning: Using this with a `true` value together with
-     `additionalNavigationBarButtonItems` will cause the add
-     button to disappear.
-     */
+    /// Set if the document group allows document creation.
+    ///
+    /// > Warning: If you set this to `true` when also using
+    /// ``SwiftUI/DocumentGroup/additionalNavigationBarButtonItems(leading:trailing:)``
+    /// the document creation button will be removed.
     func allowsDocumentCreation(_ value: Bool) -> DocumentGroup {
-        tryCustomizeBrowser { $0.allowsDocumentCreation = value }
+        tryCustomizeDocumentBrowser {
+            $0.allowsDocumentCreation = value
+        }
     }
 
-    /**
-     Whether or not to allow picking multiple items.
-     */
+    /// Set if the document group can pick multiple items.
     func allowsPickingMultipleItems(_ value: Bool) -> DocumentGroup {
-        tryCustomizeBrowser { $0.allowsPickingMultipleItems = value }
+        tryCustomizeDocumentBrowser {
+            $0.allowsPickingMultipleItems = value
+        }
     }
 
-    /**
-     Whether or not to show file extensions in the browser.
-     */
+    /// Set if the document group should show file types.
     func showFileExtensions(_ value: Bool) -> DocumentGroup {
-        tryCustomizeBrowser { $0.shouldShowFileExtensions = value }
+        tryCustomizeDocumentBrowser {
+            $0.shouldShowFileExtensions = value
+        }
     }
 }

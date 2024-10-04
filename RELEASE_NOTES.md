@@ -6,6 +6,12 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.5
+
+This version removes all deprecated code and makes the SDK use Swift 6. 
+
+
+
 ## 0.4
 
 This version adds support for visionOS and Swift strict concurrency.

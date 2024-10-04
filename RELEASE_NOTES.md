@@ -8,7 +8,15 @@ Until then, deprecated features may be removed in the next minor version.
 
 ## 0.5
 
-This version removes all deprecated code and makes the SDK use Swift 6. 
+This version removes all deprecated code and makes the SDK use Swift 6.
+
+### ‼️ Important Information
+
+iOS 18 changed how `DocumentGroup` looks and behaves, by completely changing the underlying types. You can now do a lot more things than before, which makes this SDK less useful. 
+
+While this version fixes a few things, and for instance makes the modal screens work, the `UIDocumentBrowserViewController` customizations no longer work, since the `DocumentGroup` uses a new underlying type.
+
+Since you can now do more with the native `DocumentGroup`, this verison will remain as is until iOS 19 is released, then removed...unless anyone comes up with another way to use it in iOS 18.
 
 
 

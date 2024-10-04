@@ -84,12 +84,6 @@ The online [documentation][Documentation] has more information, articles, code e
 
 
 
-## Demo Application
-
-The `Demo` app lets you explore the library and how to customize a `DocumentGroup`.
-
-
-
 ## Support my work
 
 You can [sponsor me][Sponsors] on GitHub Sponsors or [reach out][Email] for paid support, to help support my [open-source projects][OpenSource].

@@ -1,10 +1,10 @@
 <p align="center">
-    <img src ="Resources/Logo_GitHub.png" alt="DocumentKit Logo" title="DocumentKit" />
+    <img src ="Resources/Logo_Rounded.png" alt="DocumentKit Logo" title="DocumentKit" />
 </p>
 
 <p align="center">
     <img src="https://img.shields.io/github/v/release/danielsaidi/DocumentKit?color=%2300550&sort=semver" alt="Version" title="Version" />
-    <img src="https://img.shields.io/badge/swift-5.9-orange.svg" alt="Swift 5.9" title="Swift 5.9" />
+    <img src="https://img.shields.io/badge/swift-6.0-orange.svg" alt="Swift 6.0" />
     <img src="https://img.shields.io/badge/platform-SwiftUI-blue.svg" alt="Swift UI" title="Swift UI" />
     <img src="https://img.shields.io/github/license/danielsaidi/DocumentKit" alt="MIT License" title="MIT License" />
     <a href="https://twitter.com/danielsaidi"><img src="https://img.shields.io/twitter/url?label=Twitter&style=social&url=https%3A%2F%2Ftwitter.com%2Fdanielsaidi" alt="Twitter: @danielsaidi" title="Twitter: @danielsaidi" /></a>
@@ -15,13 +15,11 @@
 
 ## About DocumentKit
 
-DocumentKit is an SDK that adds more capabilities to `DocumentGroup`-based SwiftUI apps.
+DocumentKit is a SwiftUI SDK that adds more capabilities to `DocumentGroup`-based apps.
 
-`DocumentGroup`-based apps are in general quite limited when it comes to customization. For instance, you can't add custom items to the document browser toolbar. 
+`DocumentGroup`-based apps are in quite limited when it comes to customization. DocumentKit makes it easier to add custom items to the document browser, present splash and onboarding screens at startup, etc.
 
-Also, since a `DocumentGroup` has no view until you open a document, you can't present any initial onboarding screens or modals from it. 
-
-DocumentKit makes it easy to do all these things, to let you create a better user experience for your document-based apps.
+This lets you create a better user experience for your `DocumentGroup`-based apps.
 
 
 
@@ -66,19 +64,19 @@ struct MyApp: App {
 
 DocumentKit also extends `DocumentGroup` with modifiers that let you present onboarding modals and splash screens when the app launches, lets you inspect the underlying document browser, etc.
 
-For more information, please see the [getting started guide][Getting-Started]. 
+See the online [getting started guide][Getting-Started] for more information. 
 
 
 
 ## Documentation
 
-The [online documentation][Documentation] has more information, articles, code examples, etc.
+The online [documentation][Documentation] has more information, articles, code examples, etc.
 
 
 
 ## Demo Application
 
-The demo app lets you explore the library with iOS. To try it out, just open and run the `Demo` project.
+The `Demo` folder has an app that lets you explore the library and integrate with a few APIs.
 
 
 

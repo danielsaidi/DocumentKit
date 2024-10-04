@@ -76,7 +76,7 @@ The online [documentation][Documentation] has more information, articles, code e
 
 ## Demo Application
 
-The `Demo` folder has an app that lets you explore the library and integrate with a few APIs.
+The `Demo` app lets you explore the library and how to customize a `DocumentGroup`.
 
 
 

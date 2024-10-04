@@ -35,7 +35,8 @@ build_platform() {
 }
 
 # Array of platforms to build
-platforms=("iOS" "macOS" "tvOS" "watchOS" "xrOS")
+platforms=("iOS" "xrOS")
+# platforms=("iOS" "macOS" "tvOS" "watchOS" "xrOS")
 
 # Loop through platforms and build
 for platform in "${platforms[@]}"; do

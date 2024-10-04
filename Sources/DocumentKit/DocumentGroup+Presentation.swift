@@ -111,4 +111,4 @@ public extension DocumentGroup {
     }
 }
 
-extension DocumentGroup: @unchecked Sendable {}
+extension DocumentGroup: @unchecked @retroactive Sendable {}

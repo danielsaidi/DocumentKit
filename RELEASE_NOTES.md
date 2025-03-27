@@ -16,7 +16,7 @@ iOS 18 changed how `DocumentGroup` looks and behaves, by completely changing the
 
 While this version fixes a few things, and for instance makes the modal screens work, the `UIDocumentBrowserViewController` customizations no longer work, since the `DocumentGroup` uses a new underlying type.
 
-Since you can now do more with the native `DocumentGroup`, this verison will remain as is until iOS 19 is released, then removed...unless anyone comes up with another way to use it in iOS 18.
+Since you can now do more with the native `DocumentGroup`, this version will remain as is until iOS 19 is released, then removed...unless anyone comes up with another way to use it in iOS 18.
 
 
 
